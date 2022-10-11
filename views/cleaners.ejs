@@ -1,0 +1,12 @@
+<%- include("_header") %>
+    <h1><%= title %></h1>
+    <% if (cleaners.length === 0) { %>
+        <p>There are no cleaners in the hotel.</p>
+    <% } else { %>
+        <ul>
+            <% cleaners.forEach(function(cleaner){ %>
+                <li><a href="<%= cleaner.url %>"><%= cleaner.name_id %></a></li>
+            <% }) %>
+        </ul>
+    <% } %>
+<%- include("_footer") %>
