@@ -16,8 +16,12 @@ const CleanerSchema = new Schema({
     }
 });
 
+CleanerSchema.virtual("name").get(function() {
+    return `${this.first_name.trim()} ${this.last_name.trim()}`;
+})
+
 CleanerSchema.virtual("url").get(function() {
-    return `/cleaner/${this._id}`;
+    return `/hotel/cleaner/${this._id}`;
 });
 
 CleanerSchema.virtual("name_id").get(function() {

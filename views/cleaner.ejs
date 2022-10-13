@@ -1,0 +1,6 @@
+<%- include("_header") %>
+   <h1>Cleaner: <%= cleaner.name %></h1>
+   <div>Status: <%- cleaner.active ? "active employee" : "past employee" %></div>
+   <div>Start Date: <%- cleaner.start_date ? cleaner.start_date.toLocaleDateString() : "" %></div>
+   <div>End Date: <%- cleaner.end_date ? cleaner.end_date.toLocaleDateString() : "" %></div> 
+<%- include("_footer") %>  

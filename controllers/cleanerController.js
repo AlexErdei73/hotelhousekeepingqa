@@ -81,3 +81,20 @@ exports.cleaner_create_post = [
         })
     }
 ]
+
+exports.cleaner_get = function(req, res, next) {
+    Cleaner.findById(req.params.id).exec(function(err, cleaner) {
+        if (err) {
+            return next(err);
+        }
+        if (cleaner===null) {
+            const error = new Error("Cleaner not found");
+            error.status = 404;
+            return next(error);
+        }
+        res.render("cleaner", {
+            title: "Cleaner: ", 
+            cleaner 
+        });
+    })
+}

@@ -10,5 +10,6 @@ router.get('/', hotel_controller.index);
 router.get('/cleaners', cleaner_controller.cleaner_list);
 router.get('/cleaner/create', cleaner_controller.cleaner_create_get);
 router.post('/cleaner/create', cleaner_controller.cleaner_create_post);
+router.get('/cleaner/:id', cleaner_controller.cleaner_get);
 
 module.exports = router;
