@@ -8,5 +8,7 @@ router.get('/', hotel_controller.index);
 
 // Cleaner Roots //
 router.get('/cleaners', cleaner_controller.cleaner_list);
+router.get('/cleaner/create', cleaner_controller.cleaner_create_get);
+router.post('/cleaner/create', cleaner_controller.cleaner_create_post);
 
 module.exports = router;
