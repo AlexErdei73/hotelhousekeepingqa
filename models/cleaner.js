@@ -17,7 +17,7 @@ const CleanerSchema = new Schema({
 });
 
 CleanerSchema.virtual("name").get(function() {
-    return `${this.first_name.trim()} ${this.last_name.trim()}`;
+    return `${this.first_name.trim()} ${this.last_name ? this.last_name.trim() : ''}`;
 })
 
 CleanerSchema.virtual("url").get(function() {

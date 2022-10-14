@@ -1,4 +1,5 @@
 #! /usr/bin/env node
+const fs = require('fs');
 
 console.log('This script populates the rooms to your database. Specified database as argument - e.g.: populatedb mongodb+srv://cooluser:coolpassword@cluster0.a9azn.mongodb.net/local_library?retryWrites=true');
 
@@ -12,6 +13,7 @@ if (!userArgs[0].startsWith('mongodb')) {
 */
 var async = require('async');
 var Room = require('./models/room');
+var Cleaner = require('./models/cleaner');
 
 var mongoose = require('mongoose');
 var mongoDB = userArgs[0];
@@ -148,8 +150,72 @@ function createRooms(cb) {
         cb);
 };
 
+function cleanerCreate(cleanerdetail, cb) {
+
+    Cleaner.find({
+        first_name: cleanerdetail.first_name,
+        last_name: cleanerdetail.last_name
+    }).exec((err, cleaners) => {
+        if (err) {
+            cb(err, null);
+            return;
+        }
+        if (cleaners.length > 0) {
+            cb(null, cleaners);
+            return;
+        }
+        const cleaner = new Cleaner(cleanerdetail);
+        
+        cleaner.save(function (err) {
+            if (err) {
+              cb(err, null)
+              return
+            }
+            console.log(cleanerdetail);
+            cb(null, cleaner)
+        })
+    })};
+
+  function readCleanerFile(fileName, active, callback) {
+    fs.readFile(fileName, "utf-8", function(err, data) {
+        if (err) {
+            callback(err, null);
+            return;
+        }
+        const cleaners = data.split('\n').map(name => {
+            const names = name.trim().split('_');
+            const first_name = names[0];
+            const last_name = names[1];
+            return { first_name, last_name, active }
+        });
+        callback(null, cleaners);
+        });
+    };
+
+  function createGoneCleaners(cb) {
+    readCleanerFile('gonecleaners.txt', false, (err, cleaners) => { 
+        if (err) {
+            console.error(err);
+            return;
+        }
+        async.series(cleaners.map(cleaner => function(callback) { return cleanerCreate(cleaner, callback) }), cb);
+      });
+  }
+
+  function createCleaners(cb) {
+    readCleanerFile('cleaners.txt', true, (err, cleaners) => {
+        if (err) {
+            console.error(err);
+            return;
+        }
+        async.series(cleaners.map(cleaner => function(callback) { return cleanerCreate(cleaner, callback) }), cb);
+      });
+  }
+
 async.series([
     createRooms,
+    createGoneCleaners,
+    createCleaners,
 ],
 // Optional callback
 function(err, results) {
