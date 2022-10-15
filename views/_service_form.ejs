@@ -1,0 +1,30 @@
+<form action="" method="POST" class="<%- formVisible ? '' : 'd-none' %>">
+    <div class="form-group">
+        <label for="date" class="form-label">Date*</label>
+        <input type="date" name="date" id="date" class="form-control" value="<%- service ? service.date ? service.date.toISOString().slice(0,10) : '' : ''  %>">
+    </div>
+    <div class="form-group">
+        <label for="roomnumber" class="form-label">Room Number*</label>
+        <input type="number" min="0" max="9999" name="roomnumber" id="roomnumber" class="form-control" value="<%- service ? service.roomnumber : '' %>">
+    </div>
+    <div class="form-group">
+        <label for="cleaner" class="form-label">Cleaner*</label>
+        <select name="cleaner" id="cleaner" class="form-control">
+            <% cleaners.forEach(function(cleaner){ %>
+                <option value="<%= cleaner._id %>" <%- service ? service.cleaner === cleaner._id ? "selected" : "" : "" %>><%= cleaner.name %></option>
+            <% }) %> 
+        </select>
+    </div>
+    <div class="form-group">
+        <label for="type" class="form-label">Service Type*</label>
+        <select name="type" id="type" class="form-control">
+            <option value="stay over" <%- service ? service.type === "stay over" ? "selected" : "" : "" %> >Stay Over</option>
+            <option value="linen change" <%- service ? service.type === "linen change" ? "selected" : "" : "" %> >Linen Change</option>
+            <option value="depart" <%- service ? service.type === "depart" ? "selected" : "" : "" %> >Depart</option>
+            <option value="no service" <%- service ? service.type === "no service" ? "selected" : "" : "" %> >No Service</option>
+            <option value="DND" <%- service ? service.type === "DND" ? "selected" : "" : "" %> >DND</option>
+        </select>
+    </div>
+    <hr>
+    <button class="btn btn-primary" type="submit">Submit</button>
+</form>

@@ -3,6 +3,7 @@ var router = express.Router();
 var cleaner_controller = require('../controllers/cleanerController');
 var service_controller = require('../controllers/serviceController');
 var hotel_controller = require('../controllers/hotelController');
+var page_controller = require('../controllers/pageController');
 
 /* GET hotel listing. */
 router.get('/', hotel_controller.index);
@@ -18,5 +19,9 @@ router.post('/cleaner/update/:id', cleaner_controller.cleaner_update_post);
 // ServicedRoom Roots //
 router.get('/service/create', service_controller.service_create_get);
 router.post('/service/create', service_controller.service_create_post);
+
+// Hotel Page Roots //
+router.get('/:page/:date', page_controller.page_get);
+router.post('/:page/:date', page_controller.page_post);
 
 module.exports = router;

@@ -14,7 +14,8 @@ function _service_create_get(res, next, service, errors) {
             title: "Create Srevice",
             cleaners,
             service,
-            errors
+            errors,
+            formVisible: true
         });
     });
 }
