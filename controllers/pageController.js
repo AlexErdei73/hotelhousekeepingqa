@@ -31,6 +31,18 @@ function _servicesOnDate(req, cb) {
         })
 }
 
+function _activeCleaners(cb) {
+    Cleaner.find({ active: true })
+        .sort({ first_name: "asc" })
+        .exec((err, cleaners) => {
+            if (err) {
+                cb(err, null);
+                return;
+            }
+            cb(null, cleaners);
+        })
+}
+
 exports.page_get = function(req, res, next) {
             
         async.parallel([
@@ -39,7 +51,8 @@ exports.page_get = function(req, res, next) {
             },
             function(callback) {
                 _servicesOnDate(req, callback);
-            }
+            },
+            _activeCleaners
         ], (err, results) => {
             if (err) {
                 return next(err);
@@ -65,6 +78,8 @@ exports.page_get = function(req, res, next) {
                 title: `Hotel Page ${req.params.page}`,
                 formVisible: false,
                 serviceRecords,
+                service: null,
+                cleaners: results[2]
             });
         })
 }
