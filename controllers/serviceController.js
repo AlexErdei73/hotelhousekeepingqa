@@ -12,6 +12,8 @@ function _service_create_get(res, next, service, errors) {
         }
         res.render("service_form", {
             title: "Create Srevice",
+            page: 1,
+            date: new Date(),
             cleaners,
             service,
             errors,

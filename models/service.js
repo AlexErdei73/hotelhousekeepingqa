@@ -5,6 +5,7 @@ const Schema = mongoose.Schema;
 const ServiceSchema = new Schema({
     room: {
         type: mongoose.Types.ObjectId,
+        ref: 'Room',
         required: [true, 'Room must be specified'],
     },
     date: {
@@ -13,6 +14,7 @@ const ServiceSchema = new Schema({
     },
     cleaner: {
         type: mongoose.Types.ObjectId,
+        ref: 'Cleaner',
         required: [true, 'Cleaner needs to be specified']
     },
     type: {

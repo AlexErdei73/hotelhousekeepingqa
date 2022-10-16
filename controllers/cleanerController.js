@@ -10,6 +10,8 @@ exports.cleaner_list = function(req, res, next) {
             }
             res.render("cleaners", {
                 title: "Cleaners",
+                date: new Date(),
+                page: 1,
                 cleaners: cleaner_list,
             })
         })
@@ -18,6 +20,8 @@ exports.cleaner_list = function(req, res, next) {
 exports.cleaner_create_get =  function(req, res, next) {
     res.render("cleaner_form", { 
         title: "Create Cleaner",
+        date: new Date(),
+        page: 1,
         cleaner: null,
         errors: [],
      });
@@ -60,6 +64,8 @@ exports.cleaner_create_post = [
             //There are errors, rerender the form
             res.render("cleaner_form", {
                 title: "Create Cleaner",
+                date: new Date(),
+                page: 1,
                 cleaner: req.body,
                 errors: errors.array(),
             });
@@ -111,6 +117,8 @@ exports.cleaner_update_get = function(req, res, next) {
         }
         res.render("cleaner_form", {
             title: "Update Cleaner",
+            date: new Date(),
+            page: 1,
             cleaner,
             errors: null
         })
@@ -154,6 +162,8 @@ exports.cleaner_update_post = [
             //There are errors, rerender the form
             res.render("cleaner_form", {
                 title: "Update Cleaner",
+                date: new Date(),
+                page: 1,
                 cleaner: req.body,
                 errors: errors.array(),
             });

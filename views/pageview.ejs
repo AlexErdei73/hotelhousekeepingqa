@@ -1,0 +1,40 @@
+<%- include("_header") %>
+<div class="row">
+    <div class="col-10 col-md-6">
+        <table class="table table-sm table-bordered border-primary">
+            <thead>
+                <tr>
+                    <th>Room</th>
+                    <th>Cleaner</th>
+                    <th>Type</th>
+                </tr>
+            </thead>
+            <tbody>
+                <% serviceRecords.forEach(function(service, index) { %>
+                    <tr>
+                        <td><%= service.roomnumber %></td>
+                        <td><%= service.cleaner.name %></td>
+                        <td>
+                            <select index="<%= index %>" class="form-control form-control-sm">
+                                <option value=" " <%- service.type==="" ? "selected" : "" %> ></option>
+                                <option value="stay over" <%- service.type==="stay over" ? "selected" : "" %> >Stay Over</option>
+                                <option value="linen change" <%- service.type==="linen change" ? "selected" : "" %> >Linen Change</option>
+                                <option value="depart" <%- service.type==="depart" ? "selected" : "" %> >Depart</option>
+                                <option value="no service" <%- service.type==="no service" ? "selected" : "" %> >No Service</option>
+                                <option value="DND" <%- service.type==="DND" ? "selected" : "" %> >DND</option>
+                            </select>
+                        </td>
+                    </tr> 
+                <% }) %> 
+            </tbody>
+        </table>
+    </div>
+    <div class="col-2">
+        <a href="" class="btn btn-primary d-block">>></a>
+        <hr>
+        <a href="" class="btn btn-primary d-block"><<</a>
+    </div>
+</div>
+    
+<%- //include("_service_form") %>
+<%- include("_footer") %>  
