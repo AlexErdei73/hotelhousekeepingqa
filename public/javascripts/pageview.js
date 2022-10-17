@@ -15,9 +15,13 @@ const form = document.querySelector('form');
 const page = Number(pageInput.value);
 const date = new Date(dateInput.value);
 const index = Number(indexInput.value);
+const cleanerId = typeSelects[index].getAttribute("cleaner");
 
 //focus the right typeSelect
 typeSelects[index].focus();
+
+//set cleanerSelect
+cleanerSelect.value = cleanerId;
 
 // make >> and << anchors work
 function nextURL() {
@@ -64,6 +68,7 @@ function onTypeChange(event) {
     roomnumberFormInput.value = roomnumber;
     const index = event.target.getAttribute("index");
     indexInput.value = index;
+    event.target.setAttribute("cleaner", cleanerSelect.value);
     form.submit();
 }
 
