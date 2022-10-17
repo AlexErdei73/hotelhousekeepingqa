@@ -21,7 +21,7 @@ router.get('/service/create', service_controller.service_create_get);
 router.post('/service/create', service_controller.service_create_post);
 
 // Hotel Page Roots //
-router.get('/:page/:date', page_controller.page_get);
-router.post('/:page/:date', page_controller.page_post);
+router.get('/:page/:date/:index', page_controller.page_get);
+router.post('/:page/:date/:index', page_controller.page_post);
 
 module.exports = router;

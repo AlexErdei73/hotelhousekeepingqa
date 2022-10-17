@@ -79,11 +79,13 @@ exports.page_get = function(req, res, next) {
                 formVisible: false,
                 serviceRecords,
                 service: null,
-                cleaners: results[2]
+                cleaners: results[2],
+                index: req.params.index,
             });
         })
 }
 
 exports.page_post = function(req, res, next) {
-    res.send(req.body);
+    console.log(req.body);
+    res.redirect(`/hotel/${req.params.page}/${req.params.date}/${req.body.index}`);
 }

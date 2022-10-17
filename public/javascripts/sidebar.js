@@ -32,7 +32,7 @@ function getPageURL() {
     if (!isDate(new Date(date))) date = DEFAULT_DATE.toISOString().slice(0,10);
     date = new Date(date)
     date = date.toISOString().slice(0, 10).split('/').join('-');
-    return `/hotel/${page}/${date}`;
+    return `/hotel/${page}/${date}/0`;
 }
 
 function handleChange() {

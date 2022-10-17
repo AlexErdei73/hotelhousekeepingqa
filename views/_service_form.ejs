@@ -25,6 +25,7 @@
             <option value="DND" <%- service ? service.type === "DND" ? "selected" : "" : "" %> >DND</option>
         </select>
     </div>
+    <input type="number" name="index" id="index" class="d-none" value="<%- index ? index : '' %>">
     <hr>
     <button class="btn btn-primary" type="submit">Submit</button>
 </form>
