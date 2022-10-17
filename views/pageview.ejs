@@ -15,7 +15,7 @@
                         <td><%= service.roomnumber %></td>
                         <td><%= service.cleaner.name %></td>
                         <td>
-                            <select index="<%= index %>" class="form-control form-control-sm">
+                            <select index="<%= index %>" roomnumber="<%= service.roomnumber %>" class="form-control form-control-sm">
                                 <option value=" " <%- service.type==="" ? "selected" : "" %> ></option>
                                 <option value="stay over" <%- service.type==="stay over" ? "selected" : "" %> >Stay Over</option>
                                 <option value="linen change" <%- service.type==="linen change" ? "selected" : "" %> >Linen Change</option>
@@ -33,9 +33,18 @@
         <a href="" class="btn btn-primary d-block mt-3" id="next">>></a>
         <hr>
         <a href="" class="btn btn-primary d-block" id="back"><<</a>
+        <hr>
+        <div class="form-group">
+            <label for="cleaner-select" class="form-label">Cleaner</label>
+            <select id="cleaner-select" class="form-control">
+                <% cleaners.forEach(function(cleaner){ %>
+                    <option value="<%= cleaner._id %>" ><%= cleaner.name %></option>
+                <% }) %> 
+            </select>
+        </div>
     </div>
 </div>
 
-<script src="/public/javascripts/pageview.js"></script>
 <%- include("_service_form") %>
+<script src="/public/javascripts/pageview.js"></script>
 <%- include("_footer") %>

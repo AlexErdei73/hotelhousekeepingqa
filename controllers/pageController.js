@@ -85,5 +85,5 @@ exports.page_get = function(req, res, next) {
 }
 
 exports.page_post = function(req, res, next) {
-    res.send('NOT IMPLEMENTED');
+    res.send(req.body);
 }

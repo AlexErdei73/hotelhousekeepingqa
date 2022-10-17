@@ -1,11 +1,11 @@
 const DEFAULT_DATE = new Date();
 const DEFAULT_PAGE = 1;
 
-const pageInput = document.querySelector('input[type="number"]');
-const dateInput = document.querySelector('input[type="date"]');
+const pageInputElement = document.querySelector('input[type="number"]');
+const dateInputElement = document.querySelector('input[type="date"]');
 const pageAnchor = document.querySelector('#page-anchor');
-const MAX_PAGE = Number(pageInput.max);
-const MIN_PAGE = Number(pageInput.min);
+const MAX_PAGE = Number(pageInputElement.max);
+const MIN_PAGE = Number(pageInputElement.min);
 
 function isDate(date) {
     return date instanceof Date && !isNaN(date.valueOf());
@@ -20,15 +20,15 @@ function validatePage(page) {
 }
 
 function setInputValues(page, date) {
-    pageInput.value = validatePage(page);
+    pageInputElement.value = validatePage(page);
     console.log(date.toISOString().slice(0,10));
-    if (isDate(date)) dateInput.value = date.toISOString().slice(0,10);
-        else dateInput.value = DEFAULT_DATE.toISOString().slice(0,10);
+    if (isDate(date)) dateInputElement.value = date.toISOString().slice(0,10);
+        else dateInputElement.value = DEFAULT_DATE.toISOString().slice(0,10);
 }
 
 function getPageURL() {
-    const page = validatePage(pageInput.value);
-    let date = dateInput.value;
+    const page = validatePage(pageInputElement.value);
+    let date = dateInputElement.value;
     if (!isDate(new Date(date))) date = DEFAULT_DATE.toISOString().slice(0,10);
     date = new Date(date)
     date = date.toISOString().slice(0, 10).split('/').join('-');
@@ -39,6 +39,6 @@ function handleChange() {
     pageAnchor.href = getPageURL();
 }
 
-pageInput.addEventListener("change", handleChange);
-dateInput.addEventListener("change", handleChange);
+pageInputElement.addEventListener("change", handleChange);
+dateInputElement.addEventListener("change", handleChange);
 pageAnchor.href = getPageURL();
