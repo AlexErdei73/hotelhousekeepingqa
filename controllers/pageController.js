@@ -98,18 +98,13 @@ exports.page_post = [
         .isMongoId()
         .withMessage("You have to choose cleaner"),
     body("type")
-        .isIn(["","stay over","linen change","depart","no service","DND"])
+        .isIn([" ","stay over","linen change","depart","no service","DND"])
         .withMessage("Service type is required"),
     function(req, res, next) {
         const errors = validationResult(req);
         if (!errors.isEmpty()) {
-            const service = {
-                date: req.body.date,
-                roomnumber: req.body.roomnumber,
-                cleaner: req.body.cleaner,
-                type: req.body.type
-            }
-            _service_create_get(res, next, service, errors.array());
+            console.log(errors);
+            res.redirect(`/hotel/${req.params.page}/${req.params.date}/${req.body.index}`);
             return;
         }
         Room.findOne({number: req.body.roomnumber})
@@ -119,15 +114,10 @@ exports.page_post = [
                 }
                 if (room === null) {
                     const error = new Error("Roomnumber does not exist");
-                    const service = {
-                        date: req.body.date,
-                        roomnumber: req.body.roomnumber,
-                        cleaner: req.body.cleaner,
-                        type: req.body.type
-                    }
                     const errors = [];
                     errors.push(error);
-                    _service_create_get(res, next, service, errors);
+                    console.log(errors);
+                    res.redirect(`/hotel/${req.params.page}/${req.params.date}/${req.body.index}`);
                     return;
                 }
                 Service.find({room: room._id, date: req.body.date}).exec((err, services) => {
@@ -135,17 +125,31 @@ exports.page_post = [
                         return next(err);
                     }
                     if (services.length !== 0) {
-                        const error = new Error("Service has been already added");
-                        const errors = [];
-                        errors.push(error);
-                        const service = {
-                            date: req.body.date,
-                            roomnumber: req.body.roomnumber,
-                            cleaner: req.body.cleaner,
-                            type: req.body.type
-                        }
-                        _service_create_get(res, next, service, errors);
-                        return;
+                        // Service exists, we either update or delete it
+                        if (req.body.type === " ") {
+                            // Delete service
+                            Service.findByIdAndRemove(services[0]._id, {}, (err) => {
+                                if (err) {
+                                    return next(err);
+                                }
+                                res.redirect(`/hotel/${req.params.page}/${req.params.date}/${req.body.index}`);
+                            })
+                        } else {
+                            // Update service
+                            Service.findByIdAndUpdate(services[0]._id, {
+                                        room: room._id,
+                                        date: new Date(req.body.date),
+                                        cleaner: req.body.cleaner,
+                                        type: req.body.type,
+                                        _id: services[0]._id
+                                    }, {}, (err) => {
+                                        if (err) {
+                                            return next(err);
+                                        }
+                                        res.redirect(`/hotel/${req.params.page}/${req.params.date}/${req.body.index}`);
+                                    })
+                            }
+                    return;
                     }
                     const service = new Service({
                         date: req.body.date,

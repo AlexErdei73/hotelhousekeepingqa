@@ -57,18 +57,18 @@ dateFormInput.value = date.toISOString().slice(0, 10);
 
 // add empty job type option to the invisible form for deleting services
 const newOption = document.createElement('option');
-newOption.value = "";
-newOption.textContent = "";
+newOption.value = " ";
+newOption.textContent = " ";
 typeFormSelect.appendChild(newOption);
 
 function onTypeChange(event) {
     const newType = event.target.value;
     const roomnumber = event.target.getAttribute("roomnumber");
     typeFormSelect.value = newType;
+    console.log(typeFormSelect.value);
     roomnumberFormInput.value = roomnumber;
     const index = event.target.getAttribute("index");
     indexInput.value = index;
-    event.target.setAttribute("cleaner", cleanerSelect.value);
     form.submit();
 }
 
