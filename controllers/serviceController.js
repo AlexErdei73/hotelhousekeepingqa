@@ -104,3 +104,9 @@ exports.service_create_post = [
             })
     }
 ]
+
+exports.services_upload_post = function(req, res, next) {
+    const file = req.files.fileName;
+    const fileBuffer = file.data;
+    res.send(fileBuffer.toString("utf-8").split('\n'));
+}

@@ -19,6 +19,7 @@ router.post('/cleaner/update/:id', cleaner_controller.cleaner_update_post);
 // ServicedRoom Roots //
 router.get('/service/create', service_controller.service_create_get);
 router.post('/service/create', service_controller.service_create_post);
+router.post('/service/upload', service_controller.services_upload_post);
 
 // Hotel Page Roots //
 router.get('/:page/:date/:index', page_controller.page_get);
