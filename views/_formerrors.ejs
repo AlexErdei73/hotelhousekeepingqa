@@ -1,7 +1,10 @@
 <% if (errors) { %>
-    <ul>
-        <% errors.forEach(function(error) { %>
-            <li><%- error.msg || error.message %></li>
-        <% }) %>
-    </ul>
+<hr />
+<ul>
+  <% errors.forEach(function(error) { %>
+  <li class="alert alert-danger" role="alert">
+    <%- error.msg || error.message %>
+  </li>
+  <% }) %>
+</ul>
 <% } %>

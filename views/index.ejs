@@ -1,13 +1,45 @@
 <%- include("_header") %>
 <h1><%= title %></h1>
-<form
-  action="/hotel/service/upload"
-  method="POST"
-  encType="multipart/form-data">
-  <div class="form-group">
-    <label for="file-input" class="form-label">File To Upload</label>
-    <input type="file" name="fileName" id="file-input" class="form-control" />
+<div class="row">
+  <div class="col-sm-6">
+    <ul>
+      <li><strong>Depart: <%= service_details.depart_number %></strong></li>
+      <li>
+        <strong>Stay Over: <%= service_details.stayover_number %></strong>
+      </li>
+      <li>
+        <strong>Linen Change: <%= service_details.linenchange_number %></strong>
+      </li>
+      <li>
+        <strong>No Service: <%= service_details.noservices.length %></strong>
+      </li>
+      <li><strong>DND: <%= service_details.DNDs.length %></strong></li>
+      <li>
+        <strong>No Service Rooms: </strong>
+        <p><%- service_details.noservices.join(',') %></p>
+      </li>
+      <li>
+        <strong>DND Rooms: </strong>
+        <p><%- service_details.DNDs.join(',') %></p>
+      </li>
+    </ul>
   </div>
-  <button type="submit" class="btn btn-primary">Upload</button>
-</form>
-<%- include("_formerrors") %><%- include("_footer") %>
+  <div class="col-sm-6">
+    <form
+      action="/hotel/service/upload"
+      method="POST"
+      encType="multipart/form-data">
+      <div class="form-group">
+        <label for="file-input" class="form-label">File To Upload</label>
+        <input
+          type="file"
+          name="fileName"
+          id="file-input"
+          class="form-control" />
+      </div>
+      <button type="submit" class="btn btn-primary">Upload</button>
+    </form>
+    <%- include("_formerrors") %>
+  </div>
+</div>
+<%- include("_footer") %>

@@ -1,12 +1,23 @@
 .sidebar-nav {
   margin-top: 20px;
-  padding: 0;
 }
 
 ul {
   list-style: none;
+  padding: 0;
 }
 
 h2 {
   min-width: max-content;
+}
+
+form,
+hr,
+.alert {
+  max-width: 600px;
+}
+
+hr {
+  margin-left: 0;
+  margin-right: 0;
 }

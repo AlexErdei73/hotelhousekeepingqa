@@ -98,7 +98,7 @@ exports.service_create_post = [
             if (err) {
               return next(err);
             }
-            res.redirect("/hotel");
+            res.redirect(`/hotel/${room.page}/${req.body.date}/0`);
           });
         }
       );
