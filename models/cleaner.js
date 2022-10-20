@@ -25,7 +25,7 @@ CleanerSchema.virtual("url").get(function() {
 });
 
 CleanerSchema.virtual("name_id").get(function() {
-    return `${this.first_name.trim().toLowerCase()},${this.last_name.trim().charAt(0).toLowerCase()}`;
+    return this.last_name ? `${this.first_name.trim().toLowerCase()},${this.last_name.trim().charAt(0).toLowerCase()}` : this.first_name.trim().toLowerCase();
 });
 
 module.exports = mongoose.model("Cleaner", CleanerSchema);
