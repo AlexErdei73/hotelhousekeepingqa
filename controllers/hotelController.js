@@ -25,7 +25,7 @@ function _getServiceTypes(type, date, cb) {
     });
 }
 
-function service_details(date, cb) {
+exports.service_details = function (date, cb) {
   async.parallel(
     {
       depart_number(callback) {
@@ -46,11 +46,11 @@ function service_details(date, cb) {
     },
     cb
   );
-}
+};
 
 exports.index = function (req, res, next) {
   const date = req.params.date ? new Date(req.params.date) : new Date();
-  service_details(date, (err, results) => {
+  exports.service_details(date, (err, results) => {
     if (err) {
       return next(err);
     }

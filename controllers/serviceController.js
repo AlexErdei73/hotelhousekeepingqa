@@ -3,6 +3,7 @@ const Cleaner = require("../models/cleaner");
 const Room = require("../models/room");
 const { body, validationResult } = require("express-validator");
 const async = require("async");
+const hotel_controller = require("../controllers/hotelController");
 
 function _service_create_get(res, next, service, errors) {
   Cleaner.find({ active: true })
@@ -106,50 +107,75 @@ exports.service_create_post = [
   },
 ];
 
-function _handle_file_error(res, message) {
+function _handle_file_error(req, res, message) {
   const MESSAGE = "A Synergy report as a .txt file must be specified to upload";
   const error = new Error(message ? message : MESSAGE);
-  res.render("index", {
-    title: "Hotel",
-    date: new Date(),
-    page: 1,
-    errors: [error],
+  const date = req.params ? req.params.date ? new Date(req.params.date) : new Date() : new Date();
+  hotel_controller.service_details(date, (err, results) => {
+    if (err) {
+      return next(err);
+    }
+    const service_details = {
+      depart_number: results.depart_number,
+      stayover_number: results.stayover_number,
+      linenchange_number: results.linenchange_number,
+      noservices: results.noservices.map((service) => service.room.number),
+      DNDs: results.DNDs.map((service) => service.room.number),
+    };
+    res.render("index", {
+      title: "Hotel",
+      date: date,
+      page: 1,
+      errors: [error],
+      service_details,
+    });
   });
 }
 
 exports.services_upload_post = function (req, res, next) {
   if (!req.files) {
-    _handle_file_error(res);
+    _handle_file_error(req, res);
     return;
   }
   const file = req.files.fileName;
   const fileBuffer = file.data;
   const date = _getDate(file.name);
   if (date.error) {
-    _handle_file_error(res, date.error.message);
+    _handle_file_error(req, res, date.error.message);
     return;
   }
-  _getServices(
-    fileBuffer.toString("utf-8").split("\n"),
-    date,
-    (err, services) => {
+  Service.find({ date: date })
+    .count()
+    .exec((err, number) => {
       if (err) {
         return next(err);
       }
-      const saveFunctions = [];
-      services.forEach((service) => {
-        saveFunctions.push(function (callback) {
-          _saveService(service, callback);
-        });
-      });
-      async.parallel(saveFunctions, (err, results) => {
-        if (err) {
-          return next(err);
+      if (number > 0) {
+        _handle_file_error(req, res, `There is already data on ${date.toISOString().slice(0, 10)}`);
+        return;
+      }
+      _getServices(
+        fileBuffer.toString("utf-8").split("\n"),
+        date,
+        (err, services) => {
+          if (err) {
+            return next(err);
+          }
+          const saveFunctions = [];
+          services.forEach((service) => {
+            saveFunctions.push(function (callback) {
+              _saveService(service, callback);
+            });
+          });
+          async.parallel(saveFunctions, (err, results) => {
+            if (err) {
+              return next(err);
+            }
+            res.redirect(`/hotel/1/${date.toISOString().slice(0, 10)}/0`);
+          });
         }
-        res.redirect(`/hotel/1/${date.toISOString().slice(0, 10)}/0`);
-      });
-    }
-  );
+      );
+    });
 };
 
 function _saveService(serv, cb) {
