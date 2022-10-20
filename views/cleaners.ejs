@@ -1,12 +1,36 @@
 <%- include("_header") %>
-    <h1><%= title %></h1>
-    <% if (cleaners.length === 0) { %>
-        <p>There are no cleaners in the hotel.</p>
-    <% } else { %>
-        <ul>
-            <% cleaners.forEach(function(cleaner){ %>
-                <li><a href="<%= cleaner.url %>"><%= cleaner.name %></a></li>
-            <% }) %>
-        </ul>
-    <% } %>
-<%- include("_footer") %>
+<h1><%= title %></h1>
+<% if (cleaners.length === 0) { %>
+<p>There are no cleaners in the hotel.</p>
+<% } else { %>
+<div class="row">
+  <div class="col">
+    <h2>Active</h2>
+    <div class="row">
+      <ul class="col-sm-6">
+        <% var counter = 0; var lastIndex = 0;
+        cleaners.forEach(function(cleaner, index){ %> <% if (cleaner.active &&
+        counter <= 20) { counter++; lastIndex = index; %>
+        <li><a href="<%= cleaner.url %>"><%= cleaner.name %></a></li>
+        <% } %> <% }) %>
+      </ul>
+      <ul class="col-sm-6">
+        <% var counter = 21; cleaners.forEach(function(cleaner, index){ %> <% if
+        (cleaner.active && counter <= 40 && index > lastIndex) { counter++; %>
+        <li><a href="<%= cleaner.url %>"><%= cleaner.name %></a></li>
+        <% } %> <% }) %>
+      </ul>
+    </div>
+  </div>
+  <div class="col">
+    <h2>Past Employee</h2>
+    <div class="row">
+      <ul class="col">
+        <% cleaners.forEach(function(cleaner){ %> <% if (!cleaner.active) { %>
+        <li><a href="<%= cleaner.url %>"><%= cleaner.name %></a></li>
+        <% } %> <% }) %>
+      </ul>
+    </div>
+  </div>
+</div>
+<% } %> <%- include("_footer") %>

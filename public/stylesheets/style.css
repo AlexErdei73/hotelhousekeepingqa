@@ -1,5 +1,12 @@
 .sidebar-nav {
   margin-top: 20px;
   padding: 0;
+}
+
+ul {
   list-style: none;
+}
+
+h2 {
+  min-width: max-content;
 }
