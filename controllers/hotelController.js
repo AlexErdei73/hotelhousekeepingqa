@@ -1,7 +1,8 @@
-exports.index = function(req, res, next) {
-    res.render("index", {
-        title: "Hotel",
-        date: new Date(),
-        page: 1
-    })
-}
+exports.index = function (req, res, next) {
+  res.render("index", {
+    title: "Hotel",
+    date: new Date(),
+    page: 1,
+    errors: null,
+  });
+};
