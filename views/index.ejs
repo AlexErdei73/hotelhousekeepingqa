@@ -25,7 +25,9 @@
     </ul>
   </div>
   <div class="col-sm-6">
-    <form
+    <div class="row">
+      <div class="col">
+        <form
       action="/hotel/service/upload"
       method="POST"
       encType="multipart/form-data">
@@ -40,6 +42,10 @@
       <button type="submit" class="btn btn-primary">Upload</button>
     </form>
     <%- include("_formerrors") %>
+      </div>
+    </div>
+    <hr>
+    <%- include("_diary_view") %> 
   </div>
 </div>
 <%- include("_footer") %>

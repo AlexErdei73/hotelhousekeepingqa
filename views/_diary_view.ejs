@@ -1,0 +1,41 @@
+<div class="row">
+    <div class="col">
+        <div class="text-center"><storng><%- date.toLocaleString('default', { month: 'long' }) %></storng></div>
+        <table class="table table-primary table-sm table-bordered table-striped diary container-fluid">
+            <thead>
+                <tr>
+                    <th scope="col">Mon</th>
+                    <th scope="col">Tue</th>
+                    <th scope="col">Wed</th>
+                    <th scope="col">Thu</th>
+                    <th scope="col">Fri</th>
+                    <th scope="col" class="text-danger">Sat</th>
+                    <th scope="col" class="text-danger">Sun</th>
+                </tr>
+            </thead>
+            <tbody>
+                <% var month = date.toISOString().slice(5,7); %>
+                <% for(var row = 1; row <= 5; row++) { %>
+                    <tr>
+                        <% for(var col = 1; col <= 7; col++) { %>
+                            <% var index = 7*(row - 1) + col - 1 %> 
+                            <td class="<%- month !== diary_dates[index].toISOString().slice(5,7) ? "text-primary" : "" %>
+                                <%- col === 6 || col === 7 ? month !== diary_dates[index].toISOString().slice(5,7) ? "text-prmary" : "text-danger" : "" %>">
+                                <div class="day"><%= diary_dates[index].toISOString().slice(8, 10) %></div>
+                                <% if (isDataOnDates[index]) { %>
+                                <div class="d-flex align-items-center image-container">
+                                    <img src="/public/images/tick.png" alt="green tick">
+                                </div>
+                                <% } else { %>
+                                    <div class="d-flex align-items-center image-container">
+                                        <img src="/public/images/empty.png" alt="empty image">
+                                    </div>   
+                                <% } %> 
+                            </td>
+                        <% } %> 
+                    </tr>
+                <% } %>
+            </tbody>
+        </table>
+    </div>
+</div>

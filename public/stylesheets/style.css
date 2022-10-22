@@ -1,3 +1,7 @@
+* {
+  box-sizing: border-box;
+}
+
 .sidebar-nav {
   margin-top: 20px;
 }
@@ -20,4 +24,37 @@ hr,
 hr {
   margin-left: 0;
   margin-right: 0;
+}
+
+.diary th {
+  font-size: x-small;
+  text-align: center;
+  width: 3rem;
+}
+
+.diary td {
+  position: relative;
+  height: fit-content;
+  width: 3rem;
+}
+
+td img {
+  width: 100%;
+  height: auto;
+  flex-shrink: 1;
+}
+
+.day {
+  font-size: smaller;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+.diary {
+  max-width: 350px;
+}
+
+.image-container {
+  height: fit-content;
 }

@@ -102,15 +102,14 @@ exports.index = function (req, res, next) {
       noservices: results[0].noservices.map((service) => service.room.number),
       DNDs: results[0].DNDs.map((service) => service.room.number),
     };
-    _getDiaryViewDates(date).forEach((nextDate, index) => {
-      console.log(`${nextDate.toISOString().slice(0, 10)}: ${results[1][index]}`);
-    });
     res.render("index", {
       title: "Hotel",
       date: date,
       page: 1,
       errors: null,
       service_details,
+      diary_dates: _getDiaryViewDates(date),
+      isDataOnDates: results[1],
     }); 
   })
 };
