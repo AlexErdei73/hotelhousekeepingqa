@@ -1,8 +1,8 @@
 const Service = require("../models/service");
 const async = require("async");
-const getDay = require('date-fns/getDay');
-const subDay = require('date-fns/subDays');
-const addDays = require('date-fns/addDays');
+const getDay = require("date-fns/getDay");
+const subDay = require("date-fns/subDays");
+const addDays = require("date-fns/addDays");
 
 function _getServiceNumber(type, date, cb) {
   Service.find({ type: type, date: date })
@@ -37,10 +37,10 @@ function _isDataOnDate(date, cb) {
         return;
       }
       cb(null, number > 0);
-    })
+    });
 }
 
-exports.service_details = function (date, cb) {
+service_details = function (date, cb) {
   async.parallel(
     {
       depart_number(callback) {
@@ -63,35 +63,50 @@ exports.service_details = function (date, cb) {
   );
 };
 
-function _getDiaryViewDates(date) {
-  const dateString = date.toISOString().slice(0,8);
-  const firstOfMonth = new Date(dateString + '01');
+exports.getDiaryViewDates = function (date) {
+  const dateString = date.toISOString().slice(0, 8);
+  const firstOfMonth = new Date(dateString + "01");
   const dayOfWeek = getDay(firstOfMonth);
   let sub;
-  if (dayOfWeek === 0) sub = 6; 
-    else sub = dayOfWeek - 1;
+  if (dayOfWeek === 0) sub = 6;
+  else sub = dayOfWeek - 1;
   const startDate = subDay(firstOfMonth, sub);
   const diaryViewDates = [];
   for (let i = 0; i < 35; i++) {
     diaryViewDates.push(addDays(startDate, i));
-  };
+  }
   return diaryViewDates;
-}
+};
 
 function _isDataOnDates(date, cb) {
-  async.parallel(_getDiaryViewDates(date).map(nextDate => function(callback){ _isDataOnDate(nextDate, callback) }), cb);
+  async.parallel(
+    exports.getDiaryViewDates(date).map(
+      (nextDate) =>
+        function (callback) {
+          _isDataOnDate(nextDate, callback);
+        }
+    ),
+    cb
+  );
 }
+
+exports.index_data = function (date, cb) {
+  async.parallel(
+    [
+      function (callback) {
+        service_details(date, callback);
+      },
+      function (callback) {
+        _isDataOnDates(date, callback);
+      },
+    ],
+    cb
+  );
+};
 
 exports.index = function (req, res, next) {
   const date = req.params.date ? new Date(req.params.date) : new Date();
-  async.parallel([
-    function (callback) {
-      exports.service_details(date, callback);
-    },
-    function (callback) {
-      _isDataOnDates(date, callback)
-    }
-  ], (err, results) => {
+  exports.index_data(date, (err, results) => {
     if (err) {
       return next(err);
     }
@@ -108,8 +123,8 @@ exports.index = function (req, res, next) {
       page: 1,
       errors: null,
       service_details,
-      diary_dates: _getDiaryViewDates(date),
+      diary_dates: exports.getDiaryViewDates(date),
       isDataOnDates: results[1],
-    }); 
-  })
+    });
+  });
 };

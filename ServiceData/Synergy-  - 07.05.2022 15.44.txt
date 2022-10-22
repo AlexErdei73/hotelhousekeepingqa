@@ -1,0 +1,305 @@
+Room	Zone	Due In	Pending	Priority	VIP	Occ.	Attendant	Cond.	Service	Credits	Arrival	Departure	Status
+2014	Zone 2 South		0	179		1	"Ivanna, RoomAttendant"	OR	Check Out	1.00	05/07/2022 00:00:00	06/07/2022	Complete
+2016	Zone 2 South		0	3		1	"Ivanna, RoomAttendant"	OR	Stay Over	1.00	04/07/2022 00:00:00	08/07/2022	Complete
+2018	Zone 2 South		0	3		1	"Ivanna, RoomAttendant"	OR	Stay Over	1.00	04/07/2022 00:00:00	07/07/2022	Complete
+2020	Zone 2 South		0	54		1	"Ivanna, RoomAttendant"	OR	Check Out	1.00	05/07/2022 14:36:08	06/07/2022	Complete
+2022	Zone 2 South		0	54		1	"Ivanna, RoomAttendant"	OR	Check Out	1.00	05/07/2022 00:00:00	06/07/2022	Complete
+2024	Zone 2 South		0	3		1	"Ivanna, RoomAttendant"	OD	Stay Over	1.00	04/07/2022 00:00:00	07/07/2022	Do Not Disturb
+2026	Zone 2 South		0	43		1	"Ivanna, RoomAttendant"	OR	Stay Over	1.00	04/07/2022 00:00:00	08/07/2022	Complete
+2028	Zone 2 South		0	3		1	"Ivanna, RoomAttendant"	OR	Stay Over	1.00	04/07/2022 00:00:00	07/07/2022	Complete
+2030	Zone 2 South		0	3		1	"Ivanna, RoomAttendant"	OR	Stay Over	1.00	04/07/2022 00:00:00	07/07/2022	Complete
+2032	Zone 2 South		0	3		1	"Ivanna, RoomAttendant"	OD	Stay Over	1.00	04/07/2022 00:00:00	07/07/2022	Do Not Disturb
+2034	Zone 2 South			54			"Ivanna, RoomAttendant"	VR	Check Out	1.00			Complete
+2210	Zone 2 North			4			"Krisztina, RoomAttendant"	VR	Check Out	1.00			Complete
+2212	Zone 2 North			54			"Krisztina, RoomAttendant"	VR	Check Out	1.00			Complete
+2214	Zone 2 North		0	3		1	"Krisztina, RoomAttendant"	OR	Stay Over	1.00	04/07/2022 00:00:00	07/07/2022	Complete
+2216	Zone 2 North		0	43		1	"Krisztina, RoomAttendant"	OR	Stay Over	1.00	04/07/2022 00:00:00	07/07/2022	Complete
+2218	Zone 2 North			4			"Krisztina, RoomAttendant"	VR	Check Out	1.00			Complete
+2220	Zone 2 North			54			"Krisztina, RoomAttendant"	VR	Check Out	1.00			Complete
+2222	Zone 2 North		0	0		1		OR			04/07/2022 00:00:00	08/07/2022	
+2224	Zone 2 North	X		54			"Krisztina, RoomAttendant"	VR	Check Out	1.00			Complete
+2226	Zone 2 North		0	0		1		OR			04/07/2022 20:18:00	08/07/2022	
+2228	Zone 2 North			54			"Krisztina, RoomAttendant"	VR	Check Out	1.00			Complete
+2230	Zone 2 North			54			"Krisztina, RoomAttendant"	VR	Check Out	1.00			Complete
+3000	Zone 3 West			4			"Asala, AgencyRoomAttendant"	VR	Check Out	1.00			Complete
+3002	Zone 3 West			1				OOO		0.00			
+3004	Zone 3 West		0	3		1	"Lauran, AgencyRoomAttendant"	OD	Stay Over	1.00	04/07/2022 00:00:00	07/07/2022	Do Not Disturb
+3005	Zone 3 West			0				VR		0.00			
+3006	Zone 3 West		0	3		1	"Lauran, AgencyRoomAttendant"	OR	Stay Over	1.00	04/07/2022 00:00:00	07/07/2022	Complete
+3007	Zone 3 West			0				VR					
+3008	Zone 3 West		0	3		1	"Lauran, AgencyRoomAttendant"	OR	Stay Over	1.00	05/07/2022 00:00:00	06/07/2022	Complete
+3009	Zone 3 West			10			"Lauran, AgencyRoomAttendant"	VR	Check Out	1.00			Complete
+3011	Zone 3 West			60			"Lauran, AgencyRoomAttendant"	VR	Check Out	1.00			Complete
+3013	Zone 3 West		0	9		1	"Lauran, AgencyRoomAttendant"	OR	Stay Over	1.00	05/07/2022 00:00:00	06/07/2022	Complete
+3014	Zone 3 West		0	3		1	"Lauran, AgencyRoomAttendant"	OR	Stay Over	1.00	04/07/2022 00:00:00	07/07/2022	Complete
+3015	Zone 3 West	X		85			"Lauran, AgencyRoomAttendant"	VR	Check Out	1.00			Complete
+3016	Zone 3 West		0	43		1	"Lauran, AgencyRoomAttendant"	OR	Stay Over	1.00	04/07/2022 00:00:00	08/07/2022	Complete
+3017	Zone 3 West	X		185			"Lauran, AgencyRoomAttendant"	VC	Check Out	1.00			Complete
+3018	Zone 3 West		0	54		1	"Lauran, AgencyRoomAttendant"	OR	Check Out	1.00	05/07/2022 00:00:00	06/07/2022	Complete
+3019	Zone 3 West		0	0		1		OR			04/07/2022 00:00:00	06/07/2022	
+3020	Zone 3 West		0	3		1	"Lauran, AgencyRoomAttendant"	OR	Stay Over	1.00	04/07/2022 00:00:00	07/07/2022	Complete
+3021	Zone 3 West			60			"Lauran, AgencyRoomAttendant"	VR	Check Out	1.00			Complete
+3022	Zone 3 West			54			"Lauran, AgencyRoomAttendant"	VR	Check Out	1.00			Complete
+3023	Zone 3 West			10			"Asala, AgencyRoomAttendant"	VR	Check Out	1.00			Complete
+3024	Zone 3 West		0	3		1	"Lauran, AgencyRoomAttendant"	OR	Stay Over	1.00	04/07/2022 00:00:00	07/07/2022	Complete
+3025	Zone 3 West		0	0		1		OR			05/07/2022 00:00:00	06/07/2022	
+3027	Zone 3 West			9			"Matt, RoomAttendant"	VR	Check Out	1.00			Complete
+3034	Zone 3 South		0	7		1	"Matt, RoomAttendant"	OR	Stay Over	1.00	04/07/2022 00:00:00	06/07/2022	Complete
+3036	Zone 3 South		0	4		1	"Matt, RoomAttendant"	OR	Stay Over	1.00	04/07/2022 00:00:00	06/07/2022	Complete
+3038	Zone 3 South		1	4			"Matt, RoomAttendant"	VR	Stay Over	1.00			Complete
+3040	Zone 3 South		0	0		1		OR			04/07/2022 00:00:00	06/07/2022	
+3042	Zone 3 South		0	180		1	"Matt, RoomAttendant"	OR	Check Out	1.00	05/07/2022 14:21:08	06/07/2022	Complete
+3044	Zone 3 South	X		180			"Matt, RoomAttendant"	VR	Check Out	1.00			Complete
+3046	Zone 3 South			54			"Matt, RoomAttendant"	VR	Check Out	1.00			Complete
+3048	Zone 3 South		0	3		1	"Matt, RoomAttendant"	OR	Stay Over	1.00	04/07/2022 00:00:00	07/07/2022	Complete
+3050	Zone 3 South		0	3		1	"Matt, RoomAttendant"	OR	Stay Over	1.00	04/07/2022 00:00:00	07/07/2022	Complete
+3052	Zone 3 South			54			"Matt, RoomAttendant"	VR	Check Out	1.00			Complete
+3054	Zone 3 South		0	3		1	"Matt, RoomAttendant"	OR	Stay Over	1.00	04/07/2022 00:00:00	07/07/2022	Complete
+3056	Zone 3 South		0	3		1	"Matt, RoomAttendant"	OR	Stay Over	1.00	04/07/2022 00:00:00	07/07/2022	Complete
+3060	Zone 3 South		0	3		1	"Matt, RoomAttendant"	OR	Stay Over	1.00	04/07/2022 00:00:00	07/07/2022	Complete
+3062	Zone 3 South		0	3		1	"Matt, RoomAttendant"	OR	Stay Over	1.00	04/07/2022 00:00:00	07/07/2022	Complete
+3064	Zone 3 South			54			"Matt, RoomAttendant"	VR	Check Out	1.00			Complete
+3066	Zone 3 South			54			"Natalina, RoomAttendant"	VR	Check Out	1.00			Complete
+3068	Zone 3 South		0	3		1	"Natalina, RoomAttendant"	OR	Stay Over	1.00	04/07/2022 00:00:00	06/07/2022	Complete
+3070	Zone 3 South			54			"Natalina, RoomAttendant"	VR	Check Out	1.00			Complete
+3072	Zone 3 South		0	4		2	"Natalina, RoomAttendant"	OR	Stay Over	1.00	04/07/2022 00:00:00	06/07/2022	Complete
+3074	Zone 3 South		0	44		1	"Natalina, RoomAttendant"	OR	Stay Over	1.00	04/07/2022 00:00:00	07/07/2022	Complete
+3076	Zone 3 South			55			"Natalina, RoomAttendant"	VR	Check Out	1.00			Complete
+3078	Zone 3 South			55			"Natalina, RoomAttendant"	VR	Check Out	1.00			Complete
+3080	Zone 3 South			5			"Natalina, RoomAttendant"	VR	Check Out	1.00			Complete
+3082	Zone 3 South	X		108			"Asala, AgencyRoomAttendant"	VR	Check Out	1.00			Complete
+3084	Zone 3 East		0	4		1	"Natalina, RoomAttendant"	OR	Stay Over	1.00	04/07/2022 21:03:12	06/07/2022	Complete
+3086	Zone 3 East			55			"Natalina, RoomAttendant"	VR	Check Out	1.00			Complete
+3088	Zone 3 East			5			"Natalina, RoomAttendant"	VR	Check Out	1.00			Complete
+3090	Zone 3 East			55			"Natalina, RoomAttendant"	VR	Check Out	1.00			Complete
+3092	Zone 3 East		0	0		2		OR			04/07/2022 00:00:00	06/07/2022	
+3094	Zone 3 East		0	3		1	"Rubi, RoomAttendant"	OR	Stay Over	1.00	04/07/2022 00:00:00	07/07/2022	Complete
+3096	Zone 3 East			54			"Rubi, RoomAttendant"	VR	Check Out	1.00			Complete
+3098	Zone 3 East			54			"Rubi, RoomAttendant"	VR	Check Out	1.00			Complete
+3100	Zone 3 East			0				VR					
+3102	Zone 3 East		0	3		1	"Rubi, RoomAttendant"	OR	Stay Over	1.00	04/07/2022 00:00:00	07/07/2022	Complete
+3104	Zone 3 East			54			"Rubi, RoomAttendant"	VR	Check Out	1.00			Complete
+3106	Zone 3 East		0	3		1	"Rubi, RoomAttendant"	OR	Stay Over	1.00	04/07/2022 00:00:00	07/07/2022	Complete
+3108	Zone 3 East		0	0		1		OR			04/07/2022 00:00:00	06/07/2022	
+3110	Zone 3 East			0				VR					
+3112	Zone 3 East			0				VR					
+3114	Zone 3 East			0				VR					
+3116	Zone 3 East		0	3		1	"Rubi, RoomAttendant"	OR	Stay Over	1.00	05/07/2022 00:00:00	06/07/2022	Complete
+3118	Zone 3 East	X		0				VR		0.00			
+3120	Zone 3 East			0				VR					
+3122	Zone 3 East		0	3		1	"Rubi, RoomAttendant"	OR	Stay Over	1.00	04/07/2022 00:00:00	08/07/2022	Complete
+3124	Zone 3 East			54			"Rubi, RoomAttendant"	VR	Check Out	1.00			Complete
+3126	Zone 3 East			0				VR					
+3128	Zone 3 East			54			"Rubi, RoomAttendant"	VR	Check Out	1.00			Complete
+3130	Zone 3 East			0				VR					
+3132	Zone 3 East			0				VR					
+3134	Zone 3 East			54			"Rubi, RoomAttendant"	VR	Check Out	1.00			Complete
+3136	Zone 3 East			0				VR					
+3138	Zone 3 East		0	3		1	"Rubi, RoomAttendant"	OD	Stay Over	1.00	04/07/2022 00:00:00	07/07/2022	Do Not Disturb
+3140	Zone 3 East		0	3		1	"Rubi, RoomAttendant"	OR	Stay Over	1.00	04/07/2022 00:00:00	07/07/2022	Complete
+3142	Zone 3 East			0				VR					
+3144	Zone 3 East			54			"Rubi, RoomAttendant"	VR	Check Out	1.00			Complete
+3146	Zone 3 East			54			"Rubi, RoomAttendant"	VR	Check Out	1.00			Complete
+3148	Zone 3 East			55			"Daniella, RoomAttendant"	VR	Check Out	1.00			Complete
+3150	Zone 3 East			55			"Daniella, RoomAttendant"	VR	Check Out	1.00			Complete
+3152	Zone 3 East			5			"Daniella, RoomAttendant"	VR	Check Out	1.00			Complete
+3153	Zone 3 East			5			"Daniella, RoomAttendant"	VR	Check Out	1.00			Complete
+3154	Zone 3 East			5			"Daniella, RoomAttendant"	VR	Check Out	1.00			Complete
+3156	Zone 3 North	X		0				VR					
+3158	Zone 3 North			5			"Daniella, RoomAttendant"	VR	Check Out	1.00			Complete
+3160	Zone 3 North			55			"Daniella, RoomAttendant"	VR	Check Out	1.00			Complete
+3162	Zone 3 North			5			"Daniella, RoomAttendant"	VR	Check Out	1.00			Complete
+3164	Zone 3 North			5			"Daniella, RoomAttendant"	VR	Check Out	1.00			Complete
+3166	Zone 3 North			5			"Daniella, RoomAttendant"	VR	Check Out	1.00			Complete
+3168	Zone 3 North		0	3		1	"Daniella, RoomAttendant"	OD	Stay Over	1.00	04/07/2022 00:00:00	07/07/2022	Do Not Disturb
+3170	Zone 3 North		0	3		1	"Daniella, RoomAttendant"	OR	Stay Over	1.00	04/07/2022 00:00:00	07/07/2022	Complete
+3172	Zone 3 North		0	3		1	"Daniella, RoomAttendant"	OR	Stay Over	1.00	04/07/2022 00:00:00	07/07/2022	Complete
+3174	Zone 3 North		0	3		1	"Daniella, RoomAttendant"	OR	Stay Over	1.00	04/07/2022 00:00:00	07/07/2022	Complete
+3176	Zone 3 North			0				VR					
+3178	Zone 3 North		0	3		1	"Daniella, RoomAttendant"	OR	Stay Over	1.00	04/07/2022 00:00:00	07/07/2022	Complete
+3180	Zone 3 North		0	13		1	"Asala, AgencyRoomAttendant"	OD	Stay Over	1.00	04/07/2022 00:00:00	08/07/2022	Do Not Disturb
+3182	Zone 3 North		0	4		2	"Asala, AgencyRoomAttendant"	OR	Stay Over	1.00	04/07/2022 00:00:00	06/07/2022	Complete
+3184	Zone 3 North		0	11		2	"Asala, AgencyRoomAttendant"	OR	Stay Over	1.00	04/07/2022 00:00:00	06/07/2022	Complete
+3186	Zone 3 North		0	3		1	"Asala, AgencyRoomAttendant"	OD	Stay Over	1.00	04/07/2022 00:00:00	08/07/2022	Do Not Disturb
+3188	Zone 3 North			0				VR					
+3190	Zone 3 North		0	3		1	"Asala, AgencyRoomAttendant"	OR	Stay Over	1.00	04/07/2022 00:00:00	07/07/2022	Complete
+3192	Zone 3 North		0	103		1	"Asala, AgencyRoomAttendant"	OR	Stay Over	1.00	04/07/2022 00:00:00	08/07/2022	Complete
+3194	Zone 3 North		0	0		1		OR			04/07/2022 00:00:00	06/07/2022	
+3196	Zone 3 North			54			"Asala, AgencyRoomAttendant"	VD	Check Out	1.00			Complete
+3198	Zone 3 North			55			"Lisa, RoomAttendant"	VR	Check Out	1.00			Complete
+3200	Zone 3 North		0	0		1		OR			04/07/2022 00:00:00	06/07/2022	
+3202	Zone 3 North		0	180		1	"Lisa, RoomAttendant"	OR	Check Out	1.00	05/07/2022 00:00:00	06/07/2022	Complete
+3204	Zone 3 North		0	4		1	"Lisa, RoomAttendant"	OD	Stay Over	1.00	22/06/2022 00:00:00	06/07/2022	Do Not Disturb
+3206	Zone 3 North		0	4		1	"Lisa, RoomAttendant"	OR	Stay Over	1.00	04/07/2022 00:00:00	07/07/2022	Complete
+3208	Zone 3 North		0	0		1		OR			04/07/2022 00:00:00	08/07/2022	
+3211	Zone 3 West			0				OOO					
+3213	Zone 3 West		0	49		1	"Lisa, RoomAttendant"	OR	Stay Over	1.00	04/07/2022 00:00:00	08/07/2022	Complete
+3215	Zone 3 West			9			"Lisa, RoomAttendant"	VR	Check Out	1.00			Complete
+3217	Zone 3 West		0	9		1	"Lisa, RoomAttendant"	OR	Stay Over	1.00	04/07/2022 00:00:00	07/07/2022	Complete
+3219	Zone 3 West			60			"Lisa, RoomAttendant"	VR	Check Out	1.00			Complete
+3220	Zone 3 West			54			"Lisa, RoomAttendant"	VR	Check Out	1.00			Complete
+3221	Zone 3 West			10			"Lisa, RoomAttendant"	VC	Check Out	1.00			Complete
+3222	Zone 3 West			54			"Lisa, RoomAttendant"	VR	Check Out	1.00			Complete
+3223	Zone 3 West			10			"Lisa, RoomAttendant"	VR	Check Out	1.00			Complete
+3224	Zone 3 West		0	0		1		OR			04/07/2022 00:00:00	07/07/2022	
+3225	Zone 3 West			60			"Lisa, RoomAttendant"	VR	Check Out	1.00			Complete
+3226	Zone 3 West			54			"Lisa, RoomAttendant"	VR	Check Out	1.00			Complete
+3227	Zone 3 West		0	60		1	"Lisa, RoomAttendant"	OR	Check Out	1.00	05/07/2022 00:00:00	07/07/2022	Complete
+3228	Zone 3 West			54			"Lauren, RoomAttendant"	VR	Check Out	1.00			Complete
+3229	Zone 3 West		0	9		1	"Lauren, RoomAttendant"	OR	Stay Over	1.00	04/07/2022 00:00:00	07/07/2022	Complete
+3230	Zone 3 West			54			"Lauren, RoomAttendant"	VR	Check Out	1.00			Complete
+3231	Zone 3 West		0	185		1	"Lauren, RoomAttendant"	OR	Check Out	1.00	05/07/2022 00:00:00	07/07/2022	Complete
+3233	Zone 3 West			0				OOO					
+3235	Zone 3 West			0				OOO					
+3236	Zone 3 West		0	3		1	"Lauren, RoomAttendant"	OR	Stay Over + Linen	1.00	03/07/2022 00:00:00	08/07/2022	Complete
+3237	Zone 3 West			0				OOO					
+3238	Zone 3 West			54			"Krisztina, RoomAttendant"	VR	Check Out	1.00			Complete
+3239	Zone 3 West			0				OOO					
+3240	Zone 3 West			54			"Lauren, RoomAttendant"	VR	Check Out	1.00			Complete
+3242	Zone 3 West		0	0		1		OR			04/07/2022 00:00:00	08/07/2022	
+3244	Zone 3 West		0	3		1	"Lauren, RoomAttendant"	OD	Stay Over	1.00	04/07/2022 00:00:00	07/07/2022	Do Not Disturb
+4000	Zone 4 West			54			"Lauren, RoomAttendant"	VR	Check Out	1.00			Complete
+4001	Zone 4 West		0	12		2	"Lauren, RoomAttendant"	OD	Stay Over + Linen	1.00	03/07/2022 00:00:00	06/07/2022	Service Refused
+4002	Zone 4 West		0	3		1	"Lauren, RoomAttendant"	OR	Stay Over	1.00	04/07/2022 00:00:00	08/07/2022	Complete
+4003	Zone 4 West			106			"Lauren, RoomAttendant"	VR	Check Out	1.00			Complete
+4004	Zone 4 West		0	3		1	"Lauren, RoomAttendant"	OR	Stay Over	1.00	04/07/2022 00:00:00	07/07/2022	Complete
+4005	Zone 4 West		0	5		1	"Lauren, RoomAttendant"	OR	Stay Over + Linen	1.00	03/07/2022 00:00:00	11/07/2022	Complete
+4006	Zone 4 West			54			"Lauren, RoomAttendant"	VR	Check Out	1.00			Complete
+4007	Zone 4 West	X		185			"Lauren, RoomAttendant"	VR	Check Out	1.00			Complete
+4008	Zone 4 West		0	3		1	"Sue, RoomAttendant"	OD	Stay Over	1.00	04/07/2022 00:00:00	07/07/2022	Service Refused
+4009	Zone 4 West	X		60			"Margaret, RoomAttendant"	VC	Check Out	1.00			Complete
+4011	Zone 4 West	X		185			"Margaret, RoomAttendant"	VR	Check Out	1.00			Complete
+4013	Zone 4 West		0	0		1		OR			04/07/2022 00:00:00	06/07/2022	
+4014	Zone 4 West			54			"Margaret, RoomAttendant"	VR	Check Out	1.00			Complete
+4015	Zone 4 West			60			"Margaret, RoomAttendant"	VR	Check Out	1.00			Complete
+4016	Zone 4 West			54			"Margaret, RoomAttendant"	VR	Check Out	1.00			Complete
+4017	Zone 4 West		0	185		1	"Margaret, RoomAttendant"	OR	Check Out	1.00	05/07/2022 00:00:00	09/07/2022	Complete
+4018	Zone 4 West			0				VR		0.00			
+4019	Zone 4 West	X		0				VR					
+4020	Zone 4 West		0	0		1		OR			04/07/2022 00:00:00	08/07/2022	
+4021	Zone 4 West		0	9		1	"Margaret, RoomAttendant"	OD	Stay Over + Linen	1.00	03/07/2022 00:00:00	17/07/2022	Do Not Disturb
+4022	Zone 4 West		0	0		2		OR			04/07/2022 00:00:00	06/07/2022	
+4023	Zone 4 West		0	9		1	"Margaret, RoomAttendant"	OD	Stay Over + Linen	1.00	03/07/2022 00:00:00	17/07/2022	Do Not Disturb
+4024	Zone 4 West		0	0		1		OR			04/07/2022 00:00:00	07/07/2022	
+4025	Zone 4 West			59			"Margaret, RoomAttendant"	VR	Check Out	1.00			Complete
+4027	Zone 4 West		0	0		1		OR			04/07/2022 00:00:00	09/07/2022	
+4029	Zone 4 West			10			"Margaret, RoomAttendant"	VR	Pick Up	1.00			Complete
+4031	Zone 4 West		0	9		1	"Margaret, RoomAttendant"	OD	Stay Over + Linen	1.00	03/07/2022 00:00:00	09/07/2022	Do Not Disturb
+4033	Zone 4 West		0	9		1	"Margaret, RoomAttendant"	OR	Stay Over + Linen	1.00	03/07/2022 00:00:00	17/07/2022	Complete
+4034	Zone 4 South		0	183		3	"Margaret, RoomAttendant"	OR	Check Out	1.00	05/07/2022 12:59:59	07/07/2022	Complete
+4036	Zone 4 South		0	44		1	"Margaret, RoomAttendant"	OR	Stay Over	1.00	04/07/2022 00:00:00	07/07/2022	Complete
+4038	Zone 4 South		0	44		1	"Margaret, RoomAttendant"	OR	Stay Over	1.00	04/07/2022 00:00:00	07/07/2022	Complete
+4040	Zone 4 South			55			"Zsuzsanna, RoomAttendant"	VR	Check Out	1.00			Complete
+4042	Zone 4 South		0	4		1	"Zsuzsanna, RoomAttendant"	OR	Stay Over	1.00	04/07/2022 00:00:00	06/07/2022	Complete
+4044	Zone 4 South		0	4		1	"Zsuzsanna, RoomAttendant"	OR	Stay Over	1.00	04/07/2022 00:00:00	06/07/2022	Complete
+4046	Zone 4 South			54			"Zsuzsanna, RoomAttendant"	VR	Check Out	1.00			Complete
+4048	Zone 4 South		0	3		1	"Zsuzsanna, RoomAttendant"	OR	Stay Over	1.00	04/07/2022 00:00:00	07/07/2022	Complete
+4050	Zone 4 South		0	0		1		OR			04/07/2022 00:00:00	06/07/2022	
+4052	Zone 4 South		0	3		1	"Zsuzsanna, RoomAttendant"	OR	Stay Over	1.00	04/07/2022 00:00:00	06/07/2022	Complete
+4054	Zone 4 South		0	3		1	"Zsuzsanna, RoomAttendant"	OR	Stay Over	1.00	04/07/2022 00:00:00	06/07/2022	Complete
+4056	Zone 4 South			54			"Zsuzsanna, RoomAttendant"	VR	Check Out	1.00			Complete
+4058	Zone 4 South	X		87			"Zsuzsanna, RoomAttendant"	VR	Check Out	1.00			Complete
+4060	Zone 4 South		0	3		1	"Zsuzsanna, RoomAttendant"	OR	Stay Over + Linen	1.00	03/07/2022 00:00:00	06/07/2022	Complete
+4062	Zone 4 South		0	3		1	"Zsuzsanna, RoomAttendant"	OR	Stay Over	1.00	04/07/2022 00:00:00	07/07/2022	Complete
+4064	Zone 4 South		0	3		1	"Zsuzsanna, RoomAttendant"	OR	Stay Over	1.00	04/07/2022 00:00:00	07/07/2022	Complete
+4066	Zone 4 South		0	3		1	"Zsuzsanna, RoomAttendant"	OR	Stay Over	1.00	04/07/2022 00:00:00	07/07/2022	Complete
+4068	Zone 4 South			54			"Zsuzsanna, RoomAttendant"	VR	Check Out	1.00			Complete
+4070	Zone 4 South			54			"Zsuzsanna, RoomAttendant"	VR	Check Out	1.00			Complete
+4072	Zone 4 South			55			"Brigitta, RoomAttendant"	VR	Check Out	1.00			Complete
+4074	Zone 4 South			55			"Brigitta, RoomAttendant"	VR	Check Out	1.00			Complete
+4076	Zone 4 South			55			"Brigitta, RoomAttendant"	VR	Check Out	1.00			Complete
+4078	Zone 4 South		0	4		1	"Brigitta, RoomAttendant"	OR	Stay Over	1.00	04/07/2022 00:00:00	06/07/2022	Complete
+4080	Zone 4 South		0	55		1	"Brigitta, RoomAttendant"	OR	Check Out	1.00	05/07/2022 00:00:00	07/07/2022	Complete
+4082	Zone 4 South	X		58			"Brigitta, RoomAttendant"	VR	Check Out	1.00			Complete
+4084	Zone 4 East		0	0		1		OR			05/07/2022 00:00:00	08/07/2022	
+4086	Zone 4 East		0	4		1	"Brigitta, RoomAttendant"	OR	Stay Over + Linen	1.00	03/07/2022 00:00:00	06/07/2022	Complete
+4088	Zone 4 East			55			"Brigitta, RoomAttendant"	VR	Check Out	1.00			Complete
+4090	Zone 4 East			0				VR					
+4092	Zone 4 East		0	4		1	"Brigitta, RoomAttendant"	OR	Stay Over	1.00	05/07/2022 00:00:00	06/07/2022	Complete
+4094	Zone 4 East			54			"Brigitta, RoomAttendant"	VR	Check Out	1.00			Complete
+4096	Zone 4 East		0	3		1	"Brigitta, RoomAttendant"	OR	Stay Over	1.00	04/07/2022 00:00:00	07/07/2022	Complete
+4098	Zone 4 East		0	0		1		OR			04/07/2022 20:54:08	07/07/2022	
+4100	Zone 4 East		0	3		1	"Brigitta, RoomAttendant"	OR	Stay Over	1.00	04/07/2022 00:00:00	07/07/2022	Complete
+4102	Zone 4 East			54			"Brigitta, RoomAttendant"	VR	Check Out	1.00			Complete
+4104	Zone 4 East		0	3		1	"Brigitta, RoomAttendant"	OR	Stay Over	1.00	04/07/2022 00:00:00	07/07/2022	Complete
+4106	Zone 4 East			4			"Brigitta, RoomAttendant"	VR	Check Out	1.00			Complete
+4108	Zone 4 East		0	3		1	"Mariana, RoomAttendant"	OR	Stay Over	1.00	04/07/2022 00:00:00	07/07/2022	Complete
+4110	Zone 4 East			54			"Mariana, RoomAttendant"	VR	Check Out	1.00			Complete
+4112	Zone 4 East			54			"Mariana, RoomAttendant"	VR	Check Out	1.00			Complete
+4114	Zone 4 East			54			"Mariana, RoomAttendant"	VR	Check Out	1.00			Complete
+4116	Zone 4 East		0	3		1	"Mariana, RoomAttendant"	OR	Stay Over	1.00	04/07/2022 00:00:00	07/07/2022	Complete
+4118	Zone 4 East	X		62			"Mariana, RoomAttendant"	VR	Check Out	1.00			Complete
+4120	Zone 4 East			54			"Mariana, RoomAttendant"	VR	Check Out	1.00			Complete
+4122	Zone 4 East			54			"Mariana, RoomAttendant"	VR	Check Out	1.00			Complete
+4124	Zone 4 East			54			"Mariana, RoomAttendant"	VR	Check Out	1.00			Complete
+4126	Zone 4 East		0	3		1	"Mariana, RoomAttendant"	OR	Stay Over	1.00	04/07/2022 00:00:00	07/07/2022	Complete
+4128	Zone 4 East			54			"Mariana, RoomAttendant"	VR	Check Out	1.00			Complete
+4130	Zone 4 East			54			"Mariana, RoomAttendant"	VR	Check Out	1.00			Complete
+4132	Zone 4 East			54			"Mariana, RoomAttendant"	VR	Check Out	1.00			Complete
+4134	Zone 4 East			54			"Mariana, RoomAttendant"	VR	Check Out	1.00			Complete
+4136	Zone 4 East			54			"Mariana, RoomAttendant"	VR	Check Out	1.00			Complete
+4138	Zone 4 East			4			"Tracey, RoomAttendant"	VR	Check Out	1.00			Complete
+4140	Zone 4 East			54			"Tracey, RoomAttendant"	VR	Check Out	1.00			Complete
+4142	Zone 4 East			54			"Tracey, RoomAttendant"	VR	Check Out	1.00			Complete
+4144	Zone 4 East			54			"Tracey, RoomAttendant"	VR	Check Out	1.00			Complete
+4146	Zone 4 East		0	3		1	"Tracey, RoomAttendant"	OR	Stay Over	1.00	04/07/2022 00:00:00	07/07/2022	Complete
+4148	Zone 4 East		0	0		1		OR			05/07/2022 00:00:00	06/07/2022	
+4150	Zone 4 East			0				VR					
+4152	Zone 4 East		0	4		1	"Tracey, RoomAttendant"	OR	Stay Over	1.00	05/07/2022 15:21:14	06/07/2022	Complete
+4153	Zone 4 East		0	4		1	"Tracey, RoomAttendant"	OR	Stay Over	1.00	04/07/2022 21:27:18	07/07/2022	Complete
+4154	Zone 4 East		0	4		1	"Tracey, RoomAttendant"	OR	Stay Over	1.00	05/07/2022 00:00:00	06/07/2022	Complete
+4156	Zone 4 North		0	0		3		OR			04/07/2022 00:00:00	07/07/2022	
+4158	Zone 4 North			55			"Tracey, RoomAttendant"	VR	Check Out	1.00			Complete
+4160	Zone 4 North		0	0		1		OR			04/07/2022 00:00:00	06/07/2022	
+4162	Zone 4 North		0	4		1	"Tracey, RoomAttendant"	OR	Stay Over	1.00	04/07/2022 00:00:00	06/07/2022	Complete
+4164	Zone 4 North			55			"Tracey, RoomAttendant"	VR	Check Out	1.00			Complete
+4166	Zone 4 North		0	4		1	"Tracey, RoomAttendant"	OR	Stay Over	1.00	04/07/2022 00:00:00	06/07/2022	Complete
+4168	Zone 4 North		0	3		1	"Tracey, RoomAttendant"	OD	Stay Over + Linen	1.00	03/07/2022 00:00:00	08/07/2022	Service Refused
+4170	Zone 4 North		0	43		1	"Tracey, RoomAttendant"	OD	Stay Over	1.00	04/07/2022 00:00:00	06/07/2022	Service Refused
+4172	Zone 4 North			54			"Tracey, RoomAttendant"	VR	Check Out	1.00			Complete
+4174	Zone 4 North		0	3		1	"Maguy, AgencyRoomAttendant"	OR	Stay Over	1.00	04/07/2022 00:00:00	07/07/2022	Complete
+4176	Zone 4 North		0	0		1		OR			04/07/2022 00:00:00	07/07/2022	
+4178	Zone 4 North		0	0		1		OR			04/07/2022 00:00:00	08/07/2022	
+4180	Zone 4 North		0	0		4		OR			03/07/2022 00:00:00	06/07/2022	
+4182	Zone 4 North		1	4			"Maguy, AgencyRoomAttendant"	OD	Stay Over	1.00			Do Not Disturb
+4184	Zone 4 North	X		162			"Maguy, AgencyRoomAttendant"	VR	Check Out	1.00			Complete
+4186	Zone 4 North		0	3		1	"Maguy, AgencyRoomAttendant"	OD	Stay Over + Linen	1.00	03/07/2022 00:00:00	08/07/2022	Service Refused
+4188	Zone 4 North		0	3		1	"Maguy, AgencyRoomAttendant"	OR	Stay Over	1.00	04/07/2022 00:00:00	06/07/2022	Complete
+4190	Zone 4 North		0	3		2	"Maguy, AgencyRoomAttendant"	OR	Stay Over + Linen	1.00	03/07/2022 00:00:00	06/07/2022	Complete
+4192	Zone 4 North		0	0		1		OR			04/07/2022 00:00:00	08/07/2022	
+4194	Zone 4 North		0	3		2	"Maguy, AgencyRoomAttendant"	OD	Stay Over	1.00	04/07/2022 00:00:00	07/07/2022	Do Not Disturb
+4196	Zone 4 North		0	0		1		OR			04/07/2022 00:00:00	06/07/2022	
+4198	Zone 4 North			5			"Maguy, AgencyRoomAttendant"	VR	Check Out	1.00			Complete
+4200	Zone 4 North			5			"Maguy, AgencyRoomAttendant"	VR	Check Out	1.00			Complete
+4202	Zone 4 North		0	4		1	"Maguy, AgencyRoomAttendant"	OR	Stay Over	1.00	04/07/2022 00:00:00	06/07/2022	Complete
+4204	Zone 4 North		0	180		2	"Maguy, AgencyRoomAttendant"	OR	Check Out	1.00	05/07/2022 00:00:00	08/07/2022	Complete
+4206	Zone 4 North		0	4		1	"Maguy, AgencyRoomAttendant"	OR	Stay Over	1.00	04/07/2022 00:00:00	08/07/2022	Complete
+4208	Zone 4 North	X		108			"Maguy, AgencyRoomAttendant"	VR	Check Out	1.00			Complete
+4209	Zone 4 West		0	0		1		OR			02/07/2022 00:00:00	18/07/2022	
+4211	Zone 4 West		0	9		1	"Maguy, AgencyRoomAttendant"	OR	Stay Over + Linen	1.00	03/07/2022 00:00:00	19/07/2022	Complete
+4213	Zone 4 West			0				VR					
+4215	Zone 4 West		0	109		1	"Maguy, AgencyRoomAttendant"	OR	Stay Over + Linen	1.00	03/07/2022 00:00:00	17/07/2022	Complete
+4217	Zone 4 West		0	8		1	"Beverly, RoomAttendant"	OR	Stay Over	1.00	04/07/2022 00:00:00	06/07/2022	Complete
+4219	Zone 4 West		0	9		1	"Beverly, RoomAttendant"	OR	Stay Over + Linen	1.00	03/07/2022 00:00:00	18/07/2022	Complete
+4220	Zone 4 West			54			"Beverly, RoomAttendant"	VR	Check Out	1.00			Complete
+4221	Zone 4 West	X		185			"Beverly, RoomAttendant"	VR	Check Out	1.00			Complete
+4222	Zone 4 West			107			"Beverly, RoomAttendant"	VR	Check Out	1.00			Complete
+4223	Zone 4 West		0	185		1	"Beverly, RoomAttendant"	OR	Check Out	1.00	05/07/2022 15:44:46	17/07/2022	Complete
+4224	Zone 4 West			54			"Ella, AgencyRoomAttendant"	VR	Check Out	1.00			Complete
+4225	Zone 4 West		0	9		1	"Beverly, RoomAttendant"	OD	Stay Over	1.00	04/07/2022 00:00:00	17/07/2022	Service Refused
+4226	Zone 4 West		0	6		2	"Beverly, RoomAttendant"	OR	Stay Over	1.00	04/07/2022 00:00:00	06/07/2022	Complete
+4227	Zone 4 West		0	0		1		OR			24/06/2022 00:00:00	29/07/2022	
+4228	Zone 4 West		0	3		1	"Ella, AgencyRoomAttendant"	OR	Stay Over	1.00	04/07/2022 00:00:00	07/07/2022	Complete
+4229	Zone 4 West		0	0		1		OR			24/06/2022 00:00:00	29/07/2022	
+4230	Zone 4 West			54			"Ella, AgencyRoomAttendant"	VR	Check Out	1.00			Complete
+4231	Zone 4 West		0	9		1	"Ella, AgencyRoomAttendant"	OR	Stay Over	1.00	04/07/2022 00:00:00	28/07/2022	Complete
+4233	Zone 4 West		0	9		1	"Ella, AgencyRoomAttendant"	OR	Stay Over	1.00	04/07/2022 00:00:00	29/07/2022	Complete
+4235	Zone 4 West		0	9		1	"Ella, AgencyRoomAttendant"	OR	Stay Over	1.00	04/07/2022 00:00:00	09/07/2022	Complete
+4236	Zone 4 West		0	3		1	"Ella, AgencyRoomAttendant"	OR	Stay Over	1.00	04/07/2022 00:00:00	08/07/2022	Complete
+4237	Zone 4 West			0				VR					
+4238	Zone 4 West			54			"Ella, AgencyRoomAttendant"	VR	Check Out	1.00			Complete
+4239	Zone 4 West			0				VR					
+4240	Zone 4 West		0	3		1	"Ella, AgencyRoomAttendant"	OR	Stay Over	1.00	04/07/2022 00:00:00	07/07/2022	Complete
+4242	Zone 4 West		0	3		1	"Ella, AgencyRoomAttendant"	OR	Stay Over	1.00	04/07/2022 00:00:00	08/07/2022	Complete
+4244	Zone 4 West			54			"Ella, AgencyRoomAttendant"	VR	Check Out	1.00			Complete
+4245	Zone 4 West		0	52		1	"Ella, AgencyRoomAttendant"	OD	Stay Over	1.00	04/07/2022 00:00:00	06/07/2022	Do Not Disturb

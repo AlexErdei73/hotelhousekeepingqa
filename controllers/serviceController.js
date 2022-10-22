@@ -110,17 +110,21 @@ exports.service_create_post = [
 function _handle_file_error(req, res, message) {
   const MESSAGE = "A Synergy report as a .txt file must be specified to upload";
   const error = new Error(message ? message : MESSAGE);
-  const date = req.params ? req.params.date ? new Date(req.params.date) : new Date() : new Date();
-  hotel_controller.service_details(date, (err, results) => {
+  const date = req.params
+    ? req.params.date
+      ? new Date(req.params.date)
+      : new Date()
+    : new Date();
+  hotel_controller.index_data(date, (err, results) => {
     if (err) {
       return next(err);
     }
     const service_details = {
-      depart_number: results.depart_number,
-      stayover_number: results.stayover_number,
-      linenchange_number: results.linenchange_number,
-      noservices: results.noservices.map((service) => service.room.number),
-      DNDs: results.DNDs.map((service) => service.room.number),
+      depart_number: results[0].depart_number,
+      stayover_number: results[0].stayover_number,
+      linenchange_number: results[0].linenchange_number,
+      noservices: results[0].noservices.map((service) => service.room.number),
+      DNDs: results[0].DNDs.map((service) => service.room.number),
     };
     res.render("index", {
       title: "Hotel",
@@ -128,6 +132,8 @@ function _handle_file_error(req, res, message) {
       page: 1,
       errors: [error],
       service_details,
+      diary_dates: hotel_controller.getDiaryViewDates(date),
+      isDataOnDates: results[1],
     });
   });
 }
@@ -139,9 +145,24 @@ exports.services_upload_post = function (req, res, next) {
   }
   const file = req.files.fileName;
   const fileBuffer = file.data;
-  const date = _getDate(file.name);
+  exports.saveSynergyFile(
+    file.name,
+    fileBuffer.toString("utf-8"),
+    (err, date) => {
+      if (err) {
+        _handle_file_error(req, res, err.message);
+        return;
+      }
+      res.redirect(`/hotel/1/${date.toISOString().slice(0, 10)}/0`);
+    }
+  );
+};
+
+exports.saveSynergyFile = function (fileName, fileData, cb) {
+  const date = _getDate(fileName);
   if (date.error) {
-    _handle_file_error(req, res, date.error.message);
+    const error = date.error;
+    cb(error, null);
     return;
   }
   Service.find({ date: date })
@@ -151,30 +172,31 @@ exports.services_upload_post = function (req, res, next) {
         return next(err);
       }
       if (number > 0) {
-        _handle_file_error(req, res, `There is already data on ${date.toISOString().slice(0, 10)}`);
+        const error = new Error(
+          `There is already data on ${date.toISOString().slice(0, 10)}`
+        );
+        cb(error, null);
         return;
       }
-      _getServices(
-        fileBuffer.toString("utf-8").split("\n"),
-        date,
-        (err, services) => {
-          if (err) {
-            return next(err);
-          }
-          const saveFunctions = [];
-          services.forEach((service) => {
-            saveFunctions.push(function (callback) {
-              _saveService(service, callback);
-            });
-          });
-          async.parallel(saveFunctions, (err, results) => {
-            if (err) {
-              return next(err);
-            }
-            res.redirect(`/hotel/1/${date.toISOString().slice(0, 10)}/0`);
-          });
+      _getServices(fileData.split("\n"), date, (err, services) => {
+        if (err) {
+          cb(err, null);
+          return;
         }
-      );
+        const saveFunctions = [];
+        services.forEach((service) => {
+          saveFunctions.push(function (callback) {
+            _saveService(service, callback);
+          });
+        });
+        async.parallel(saveFunctions, (err) => {
+          if (err) {
+            cb(err, null);
+            return;
+          }
+          cb(null, date);
+        });
+      });
     });
 };
 
