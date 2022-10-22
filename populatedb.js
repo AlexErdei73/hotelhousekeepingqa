@@ -1,5 +1,7 @@
 #! /usr/bin/env node
 const fs = require('fs');
+const path = require('path');
+const service_controller = require('./controllers/serviceController');
 
 console.log('This script populates the rooms to your database. Specified database as argument - e.g.: populatedb mongodb+srv://cooluser:coolpassword@cluster0.a9azn.mongodb.net/local_library?retryWrites=true');
 
@@ -16,6 +18,7 @@ var Room = require('./models/room');
 var Cleaner = require('./models/cleaner');
 
 var mongoose = require('mongoose');
+const service = require('./models/service');
 var mongoDB = userArgs[0];
 mongoose.connect(mongoDB, {useNewUrlParser: true, useUnifiedTopology: true});
 mongoose.Promise = global.Promise;
@@ -176,7 +179,7 @@ function cleanerCreate(cleanerdetail, cb) {
         })
     })};
 
-  function readCleanerFile(fileName, active, callback) {
+function readCleanerFile(fileName, active, callback) {
     fs.readFile(fileName, "utf-8", function(err, data) {
         if (err) {
             callback(err, null);
@@ -192,7 +195,7 @@ function cleanerCreate(cleanerdetail, cb) {
         });
     };
 
-  function createGoneCleaners(cb) {
+function createGoneCleaners(cb) {
     readCleanerFile('gonecleaners.txt', false, (err, cleaners) => { 
         if (err) {
             console.error(err);
@@ -202,7 +205,7 @@ function cleanerCreate(cleanerdetail, cb) {
       });
   }
 
-  function createCleaners(cb) {
+function createCleaners(cb) {
     readCleanerFile('cleaners.txt', true, (err, cleaners) => {
         if (err) {
             console.error(err);
@@ -212,10 +215,43 @@ function cleanerCreate(cleanerdetail, cb) {
       });
   }
 
+function getServiceFiles(folderName) {
+    const folderPath = path.join(__dirname, folderName);
+    const isFile = fileName => {
+        return fs.lstatSync(fileName).isFile();
+      };
+      
+    return  fs.readdirSync(folderPath)
+        .map(fileName => {
+          return path.join(folderPath, fileName);
+        })
+        .filter(isFile);
+}
+
+const serviceFiles = getServiceFiles('ServiceData');
+const serviceFileNames = serviceFiles.map(filePath => path.basename(filePath));
+
+function readServiceFiles(cb) {
+    async.series(serviceFiles.map(filePath => function(callback) { 
+        fs.readFile(filePath, { encoding: 'utf-8'}, callback);
+    }), cb)} 
+
+function saveServiceFiles(fileDataItems, cb) {
+    async.series(fileDataItems.map((fileData, index) => function(callback) {
+        service_controller.saveSynergyFile(serviceFileNames[index], fileData, callback);
+    }), cb)}
+
+function uploadServiceFiles(cb) {
+    async.waterfall([
+        readServiceFiles,
+        saveServiceFiles,
+    ], cb)}
+
 async.series([
     createRooms,
     createGoneCleaners,
     createCleaners,
+    uploadServiceFiles,
 ],
 // Optional callback
 function(err, results) {
