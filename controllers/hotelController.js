@@ -1,5 +1,8 @@
 const Service = require("../models/service");
 const async = require("async");
+const getDay = require('date-fns/getDay');
+const subDay = require('date-fns/subDays');
+const addDays = require('date-fns/addDays');
 
 function _getServiceNumber(type, date, cb) {
   Service.find({ type: type, date: date })
@@ -25,6 +28,18 @@ function _getServiceTypes(type, date, cb) {
     });
 }
 
+function _isDataOnDate(date, cb) {
+  Service.find({ date: date })
+    .count()
+    .exec((err, number) => {
+      if (err) {
+        cb(err, undefined);
+        return;
+      }
+      cb(null, number > 0);
+    })
+}
+
 exports.service_details = function (date, cb) {
   async.parallel(
     {
@@ -48,25 +63,54 @@ exports.service_details = function (date, cb) {
   );
 };
 
+function _getDiaryViewDates(date) {
+  const dateString = date.toISOString().slice(0,8);
+  const firstOfMonth = new Date(dateString + '01');
+  const dayOfWeek = getDay(firstOfMonth);
+  let sub;
+  if (dayOfWeek === 0) sub = 6; 
+    else sub = dayOfWeek - 1;
+  const startDate = subDay(firstOfMonth, sub);
+  const diaryViewDates = [];
+  for (let i = 0; i < 35; i++) {
+    diaryViewDates.push(addDays(startDate, i));
+  };
+  return diaryViewDates;
+}
+
+function _isDataOnDates(date, cb) {
+  async.parallel(_getDiaryViewDates(date).map(nextDate => function(callback){ _isDataOnDate(nextDate, callback) }), cb);
+}
+
 exports.index = function (req, res, next) {
   const date = req.params.date ? new Date(req.params.date) : new Date();
-  exports.service_details(date, (err, results) => {
+  async.parallel([
+    function (callback) {
+      exports.service_details(date, callback);
+    },
+    function (callback) {
+      _isDataOnDates(date, callback)
+    }
+  ], (err, results) => {
     if (err) {
       return next(err);
     }
     const service_details = {
-      depart_number: results.depart_number,
-      stayover_number: results.stayover_number,
-      linenchange_number: results.linenchange_number,
-      noservices: results.noservices.map((service) => service.room.number),
-      DNDs: results.DNDs.map((service) => service.room.number),
+      depart_number: results[0].depart_number,
+      stayover_number: results[0].stayover_number,
+      linenchange_number: results[0].linenchange_number,
+      noservices: results[0].noservices.map((service) => service.room.number),
+      DNDs: results[0].DNDs.map((service) => service.room.number),
     };
+    _getDiaryViewDates(date).forEach((nextDate, index) => {
+      console.log(`${nextDate.toISOString().slice(0, 10)}: ${results[1][index]}`);
+    });
     res.render("index", {
       title: "Hotel",
       date: date,
       page: 1,
       errors: null,
       service_details,
-    });
-  });
+    }); 
+  })
 };
