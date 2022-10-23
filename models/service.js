@@ -21,7 +21,12 @@ const ServiceSchema = new Schema({
         type: String,
         enum: ["stay over","depart","linen change","no service","DND"],
         required: [true, 'Job type needs to be specified']
-    } 
+    },
+    audit_score: {
+        type: Number,
+        min: [0, "Audit score is a nonnegative percentage value"],
+        max: [100, "Audit value cannor be higher than 100 percent"]
+    }
 });
 
 module.exports = mongoose.model("Service", ServiceSchema);
