@@ -30,16 +30,10 @@ const FeedbackSchema = new Schema({
         type: mongoose.Types.ObjectId,
         ref: "Cleaner"
     },
-    'year': {
-        type: Number,
-        required: [true, "Year must be given"]
+    'feedback_date': {
+        type: Date,
+        required: [true, "Feedback date must be specified"]
     },
-    'month': {
-        type: Number,
-        min: [1, "Month cannot be less than 1"],
-        max: [12, "Month cannot be more than 12"],
-        required: [true, "Month has to be specified"]
-    }
 });
 
 module.exports = mongoose.model("Feedback", FeedbackSchema);

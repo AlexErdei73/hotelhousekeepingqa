@@ -4,6 +4,7 @@ var cleaner_controller = require("../controllers/cleanerController");
 var service_controller = require("../controllers/serviceController");
 var hotel_controller = require("../controllers/hotelController");
 var page_controller = require("../controllers/pageController");
+var feedback_controller = require("../controllers/feedbackController");
 
 /* GET hotel listing. */
 router.get("/", hotel_controller.index);
@@ -25,5 +26,9 @@ router.post("/service/upload", service_controller.services_upload_post);
 router.get("/:date", hotel_controller.index);
 router.get("/:page/:date/:index", page_controller.page_get);
 router.post("/:page/:date/:index", page_controller.page_post);
+
+//Feedback Roots //
+router.get("/feedback/create", feedback_controller.feedback_create_get);
+router.post("/feedback/create", feedback_controller.feedback_create_post);
 
 module.exports = router;
