@@ -169,7 +169,8 @@ exports.saveSynergyFile = function (fileName, fileData, cb) {
     .count()
     .exec((err, number) => {
       if (err) {
-        return next(err);
+        cb(err, null);
+        return;
       }
       if (number > 0) {
         const error = new Error(
@@ -263,7 +264,7 @@ function _getServices(lines, date, cb) {
             date: service.date,
             type: service.type,
             cleaner: cleaners.find(
-              (cleaner) => cleaner.name_id === service.cleanerName.toLowerCase()
+              (cleaner) => cleaner.name_id.toLowerCase() === service.cleanerName.toLowerCase()
             )._id,
             room: rooms.find((room) => room.number === service.roomnumber)._id,
           };
@@ -279,7 +280,7 @@ function _getDate(fileName) {
   const error = new Error("File is not a valid Synergy report");
   //If we cannot parse the date from the fileName, the uploaded file is not Synergy report
   if (!datePart) return { error: error };
-  const dateString = datePart.slice(1, 11);
+  const dateString = datePart.slice(0, 11);
   const words = dateString.split(".");
   const day = words[1];
   const month = words[0];
