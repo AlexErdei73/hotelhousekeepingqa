@@ -65,7 +65,8 @@ service_details = function (date, cb) {
 
 exports.getDiaryViewDates = function (date) {
   const dateString = date.toISOString().slice(0, 8);
-  const firstOfMonth = new Date(dateString + "01");
+  //We start from 12:00 to avoid problems with DST (daylight saving time)
+  const firstOfMonth = new Date(dateString + "01T12:00:00.000Z");
   const dayOfWeek = getDay(firstOfMonth);
   let sub;
   if (dayOfWeek === 0) sub = 6;
@@ -73,7 +74,8 @@ exports.getDiaryViewDates = function (date) {
   const startDate = subDay(firstOfMonth, sub);
   const diaryViewDates = [];
   for (let i = 0; i < 35; i++) {
-    diaryViewDates.push(addDays(startDate, i));
+    //We need to go back to 00:00 time to pass the database query 
+    diaryViewDates.push(new Date(addDays(startDate, i).toISOString().split('T')[0]));
   }
   return diaryViewDates;
 };
