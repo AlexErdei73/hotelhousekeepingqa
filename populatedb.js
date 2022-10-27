@@ -238,6 +238,7 @@ function readServiceFiles(cb) {
 
 function saveServiceFiles(fileDataItems, cb) {
     async.series(fileDataItems.map((fileData, index) => function(callback) {
+        console.log(serviceFileNames[index]);
         service_controller.saveSynergyFile(serviceFileNames[index], fileData, callback);
     }), cb)}
 
@@ -248,9 +249,9 @@ function uploadServiceFiles(cb) {
     ], cb)}
 
 async.series([
-    createRooms,
-    createGoneCleaners,
-    createCleaners,
+    //createRooms,
+    //createGoneCleaners,
+    //createCleaners,
     uploadServiceFiles,
 ],
 // Optional callback
