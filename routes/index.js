@@ -6,4 +6,8 @@ router.get('/', function(req, res, next) {
   res.redirect('/hotel');
 });
 
+router.get('/favicon.ico', function(req, res, next) {
+  res.redirect('/public/images/favicon.ico');
+});
+
 module.exports = router;
