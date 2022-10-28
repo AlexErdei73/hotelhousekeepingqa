@@ -228,14 +228,173 @@ exports.feedbacks_get = function (req, res, next) {
             date: date,
             page: 0,
             feedbacks: updatedFeedbacks,
+            errors: [],
           });
         }
       );
     });
 };
 
+function _getDate(fileName) {
+  const day = "01";
+  const month = fileName.slice(4, 6);
+  const year = fileName.slice(7, 11);
+  const date = new Date(`${year}-${month}-${day}`);
+  if (isNaN(date.valueOf())) return;
+  return date;
+}
+
+function _getDateFromString(str) {
+  const words = str.split("/");
+  if (words.length !== 3) return;
+  const year = words[2];
+  const month = words[1];
+  const day = words[0];
+  const date = new Date(`${year}-${month}-${day}`);
+  if (isNaN(date.valueOf())) return;
+  return date;
+}
+
+function _getFeedbacks(lines, date, cb) {
+  const feedbacks = [];
+  lines.forEach((line) => {
+    const words = line.split("\t");
+    if (words.length < 4) return;
+    const checkin = words[0];
+    const checkout = words[1];
+    const roomnumber = Number(words[2]);
+    const score = Number(words[3]);
+    if (roomnumber && score) {
+      const checkin_date = _getDateFromString(checkin);
+      const checkout_date = _getDateFromString(checkout);
+      if (checkout_date && checkin_date) {
+        feedbacks.push({
+          roomnumber,
+          checkin_date,
+          checkout_date,
+          score,
+          feedback_date: date,
+        });
+      }
+    }
+  });
+  Room.find({}).exec((err, rooms) => {
+    if (err) {
+      cb(err, null);
+      return;
+    }
+    cb(
+      null,
+      feedbacks.map((feedback) => {
+        const newFeedback = {
+          feedback_date: feedback.feedback_date,
+          month: getMonth(feedback.feedback_date),
+          year: getYear(feedback.feedback_date),
+          room: rooms.find((room) => room.number === feedback.roomnumber),
+          score: feedback.score,
+          checkin_date: feedback.checkin_date,
+          checkout_date: feedback.checkout_date,
+        };
+        return newFeedback;
+      })
+    );
+  });
+}
+
+function _saveFeedback(feedback, cb) {
+  Feedback.find({
+    checkin_date: feedback.checkin_date,
+    checkout_date: feedback.checkout_date,
+    room: feedback.room._id,
+  }).exec((err, feedbacks) => {
+    if (err) {
+      cb(err, null);
+      return;
+    }
+    if (feedbacks.length > 0) {
+      // We have already data, we update it from the file
+      Feedback.findByIdAndUpdate(
+        feedbacks[0]._id,
+        {
+          _id: feedbacks[0]._id,
+          checkin_date: feedback.checkin_date,
+          checkout_date: feedback.checkout_date,
+          room: feedback.room._id,
+          score: feedback.score,
+          feedback_date: feedback.feedback_date,
+          year: feedback.year,
+          month: feedback.month,
+        },
+        { overwrite: true },
+        (err, fb) => {
+          if (err) {
+            cb(err, null);
+            return;
+          }
+          console.log(fb);
+          cb(null, fb);
+        }
+      );
+      return;
+    }
+    const fb = new Feedback({
+      checkin_date: feedback.checkin_date,
+      checkout_date: feedback.checkout_date,
+      room: feedback.room._id,
+      score: feedback.score,
+      feedback_date: feedback.feedback_date,
+      year: feedback.year,
+      month: feedback.month,
+    });
+    fb.save((err, feedback) => {
+      if (err) {
+        console.error(err.message);
+        cb(err, null);
+        return;
+      }
+      console.log(feedback);
+      cb(null, feedback);
+    });
+  });
+}
+
 exports.feedbacks_post = function (req, res, next) {
-  res.send("NOT IMPLEMENTED");
+  const ERROR_MESSAGE =
+    "A file shoukld be specified with the name like SaltMM-YYYY.txt";
+  if (!req.files) {
+    const err = new Error(ERROR_MESSAGE);
+    return;
+  }
+  const file = req.files.fileName;
+  const date = _getDate(file.name);
+  if (!date) {
+    const err = new Error(ERROR_MESSAGE);
+    return;
+  }
+  const fileBuffer = file.data;
+  _getFeedbacks(
+    fileBuffer.toString("utf-8").split("\n"),
+    date,
+    (err, feedbacks) => {
+      if (err) {
+        return next(err);
+      }
+      async.series(
+        feedbacks.map(
+          (feedback) =>
+            function (callback) {
+              _saveFeedback(feedback, callback);
+            }
+        ),
+        (err) => {
+          if (err) {
+            return next(err);
+          }
+          res.redirect(`/hotel/feedbacks/${date.toISOString().split("T")[0]}`);
+        }
+      );
+    }
+  );
 };
 
 exports.feedback_create_get = function (req, res, next) {

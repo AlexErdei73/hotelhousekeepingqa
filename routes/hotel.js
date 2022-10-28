@@ -24,11 +24,10 @@ router.post("/service/upload", service_controller.services_upload_post);
 
 //Feedback Roots //
 router.get("/feedbacks", feedback_controller.feedbacks_get);
+router.post("/feedbacks", feedback_controller.feedbacks_post);
 router.get("/feedbacks/:date", feedback_controller.feedbacks_get);
-router.post("/feedbacks/:date", feedback_controller.feedbacks_post);
 router.get("/feedback/create", feedback_controller.feedback_create_get);
 router.post("/feedback/create", feedback_controller.feedback_create_post);
-
 
 // Hotel Page Roots //
 router.get("/:date", hotel_controller.index);
