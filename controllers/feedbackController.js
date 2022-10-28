@@ -2,6 +2,14 @@ const Feedback = require('../models/feedback');
 const Room = require('../models/room');
 const { body, validationResult } = require("express-validator");
 
+exports.feedbacks_get = function(req, res, next) {
+    res.send("NOT IMPLEMENTED");
+};
+
+exports.feedbacks_post = function(req, res, next) {
+    res.send("NOT IMPLEMENTED");
+}
+
 exports.feedback_create_get = function(req, res, next) {
     res.render("feedback_form", {
         title: "Create Feedback",
@@ -11,7 +19,6 @@ exports.feedback_create_get = function(req, res, next) {
         date: new Date()
     });
 }
-
 
 exports.feedback_create_post = [
     body("roomnumber")

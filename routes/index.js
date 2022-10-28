@@ -6,6 +6,7 @@ router.get('/', function(req, res, next) {
   res.redirect('/hotel');
 });
 
+/* GET favicon */
 router.get('/favicon.ico', function(req, res, next) {
   res.redirect('/public/images/favicon.ico');
 });
