@@ -1,0 +1,27 @@
+<%- include("_header") %>
+    <h1><%= title %> </h1>
+    <table class="table table-primary table-bordered table-sm table-striped">
+        <head>
+            <tr>
+                <th>Checkin</th>
+                <th>Checkout</th>
+                <th>Room</th>
+                <th>Score</th>
+                <th>Cleaner</th>
+                <th>CleanerS/O</th>
+            </tr>
+        </head>
+        <body>
+            <% feedbacks.forEach(feedback => { %>
+                <tr>
+                    <td><%= feedback.checkin_date.toISOString().slice(0, 10) %></td>
+                    <td><%= feedback.checkout_date.toISOString().slice(0, 10) %></td>
+                    <td><%= feedback.room.number %></td>
+                    <td><%= feedback.score %></td>
+                    <td><%- feedback.depart_cleaner ? feedback.depart_cleaner.name_id : '' %></td>
+                    <td><%- feedback.stayover_cleaner ? feedback.stayover_cleaner.name_id : '' %></td>
+                </tr>
+            <% }) %> 
+        </body>
+    </table>
+<%- include("_footer") %> 

@@ -34,6 +34,16 @@ const FeedbackSchema = new Schema({
         type: Date,
         required: [true, "Feedback date must be specified"]
     },
+    'month': {
+        type: Number,
+        min: [0, "Month is nonnegative integer"],
+        max: [11, "Month is maximum 11"],
+        required: [true, "Feedback month must be specified"]
+    },
+    'year': {
+        type: Number,
+        required: [true, "Feedback year must be sprcified"]
+    }
 });
 
 module.exports = mongoose.model("Feedback", FeedbackSchema);

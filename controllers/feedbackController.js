@@ -1,9 +1,70 @@
 const Feedback = require('../models/feedback');
 const Room = require('../models/room');
+const Service = require('../models/service');
 const { body, validationResult } = require("express-validator");
+const { getYear, getMonth } = require('date-fns');
+const async = require('async');
+
+function _findCleaner(feedback, cb) {
+    if (feedback.depart_cleaner) {
+        cb(null, feedback.depart_cleaner);
+        return;
+    }
+    Service.find({ room: feedback.room._id, type: "depart", date: {$lte: feedback.checkin_date}})
+        .sort({date: "desc"})
+        .populate("cleaner")
+        .exec((err, services) => {
+            if (err) {
+                cb(err, null);
+                return;
+            }
+            if (services.length === 0) {
+                const error = new Error('Cleaner cannot be found');
+                cb(error, null);
+                return;
+            }
+            cb(null, services[0].cleaner);
+        })
+}
+
+function _findAllCleaners(feedbacks, cb) {
+    async.parallel(
+        feedbacks.map(feedback => function(callback) {
+            _findCleaner(feedback, callback)
+        }),
+        (err, results) => {
+            if (err) {
+                cb(err, null);
+                return;
+            }
+            cb(null, results);
+        }
+    )
+}
 
 exports.feedbacks_get = function(req, res, next) {
-    res.send("NOT IMPLEMENTED");
+    const date = req.params ? req.params.date ? new Date(req.params.date) : new Date() : new Date()
+    Feedback.find({month: getMonth(date), year: getYear(date)})
+        .populate("room")
+        .exec((err, feedbacks) => {
+            if (err) {
+                return next(err);
+            }
+            _findAllCleaners(feedbacks, (err, cleaners) => {
+                if (err) {
+                    return next(err);
+                }
+                feedbacks.forEach((feedback, index) => {
+                    feedback.depart_cleaner = cleaners[index];
+                });
+                res.render("feedbacks", {
+                    title: "Feedbacks",
+                    date: date,
+                    page: 0,
+                    feedbacks
+                });
+            });
+        })
 };
 
 exports.feedbacks_post = function(req, res, next) {
@@ -85,6 +146,8 @@ exports.feedback_create_post = [
                     checkin_date: req.body.checkin_date,
                     checkout_date: req.body.checkout_date,
                     feedback_date: req.body.feedback_date,
+                    year: getYear(req.body.feedback_date),
+                    month: getMonth(req.body.feedback_date),
                     score: req.body.score
                 })
                 feedback.save((err) => {
