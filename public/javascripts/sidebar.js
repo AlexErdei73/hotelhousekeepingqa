@@ -5,6 +5,7 @@ const pageInputElement = document.querySelector('input[type="number"]');
 const dateInputElement = document.querySelector('input[type="date"]');
 const pageAnchor = document.querySelector("#page-anchor");
 const homeAnchor = document.querySelector("#home-anchor");
+const feedbacksAnchor = document.querySelector('#feedbacks-anchor');
 const MAX_PAGE = Number(pageInputElement.max);
 const MIN_PAGE = Number(pageInputElement.min);
 
@@ -43,11 +44,16 @@ function getHomeURL() {
   return `/hotel/${getDate()}`;
 }
 
+function getFeedbacksURL() {
+  return `/hotel/feedbacks/${getDate()}`;
+}
+
 function handleChange() {
   pageAnchor.href = getPageURL();
   homeAnchor.href = getHomeURL();
+  feedbacksAnchor.href = getFeedbacksURL();
 }
 
 pageInputElement.addEventListener("change", handleChange);
 dateInputElement.addEventListener("change", handleChange);
-pageAnchor.href = getPageURL();
+handleChange();
