@@ -5,11 +5,7 @@ const { body, validationResult } = require("express-validator");
 const { getYear, getMonth } = require("date-fns");
 const async = require("async");
 
-function _findCleaner(feedback, cb) {
-  if (feedback.depart_cleaner) {
-    cb(null, feedback.depart_cleaner);
-    return;
-  }
+function _findDepartCleaner(feedback, cb) {
   Service.find({
     room: feedback.room._id,
     type: "depart",
@@ -31,6 +27,113 @@ function _findCleaner(feedback, cb) {
     });
 }
 
+function _findStayoverCleaner(feedback, cb) {
+  Service.find({
+    room: feedback.room._id,
+    type: "stay over",
+    date: { $gt: feedback.checkin_date, $lt: feedback.checkout_date },
+  })
+    .sort({ date: "desc" })
+    .populate("cleaner")
+    .exec((err, services) => {
+      if (err) {
+        cb(err, null);
+        return;
+      }
+      if (services.length === 0) {
+        cb(null, null);
+        return;
+      }
+      cb(null, services[0]);
+    });
+}
+
+function _findLinenchangeCleaner(feedback, cb) {
+  if (feedback.depart_cleaner) {
+    cb(null, feedback.stayover_cleaner);
+    return;
+  }
+  Service.find({
+    room: feedback.room._id,
+    type: "linen change",
+    date: { $gt: feedback.checkin_date, $lt: feedback.checkout_date },
+  })
+    .sort({ date: "desc" })
+    .populate("cleaner")
+    .exec((err, services) => {
+      if (err) {
+        cb(err, null);
+        return;
+      }
+      if (services.length === 0) {
+        cb(null, null);
+        return;
+      }
+      cb(null, services[0]);
+    });
+}
+
+function _findStayOrLinenchangeCleaner(feedback, cb) {
+  if (feedback.depart_cleaner) {
+    cb(null, feedback.stayover_cleaner);
+    return;
+  }
+  async.parallel(
+    [
+      function (callback) {
+        _findStayoverCleaner(feedback, callback);
+      },
+      function (callback) {
+        _findLinenchangeCleaner(feedback, callback);
+      },
+    ],
+    (err, results) => {
+      if (err) {
+        cb(err, null);
+        return;
+      }
+      const stayOverService = results[0];
+      const linenChangeService = results[1];
+      if (!stayOverService) {
+        cb(null, linenChangeService ? linenChangeService.cleaner : null);
+        return;
+      }
+      if (!linenChangeService) {
+        cb(null, stayOverService ? stayOverService.cleaner : null);
+        return;
+      }
+      if (linenChangeService.date >= stayOverService.date) {
+        cb(null, linenChangeService.cleaner);
+        return;
+      }
+      cb(null, stayOverService.cleaner);
+    }
+  );
+}
+
+function _findCleaner(feedback, cb) {
+  async.parallel(
+    {
+      depart_cleaner(callback) {
+        _findDepartCleaner(feedback, callback);
+      },
+      stayover_cleaner(callback) {
+        _findStayOrLinenchangeCleaner(feedback, callback);
+      },
+    },
+    (err, result) => {
+      if (err) {
+        cb(err, null);
+        return;
+      }
+      cb(null, {
+        stayover_cleaner: result.stayover_cleaner,
+        depart_cleaner: result.depart_cleaner,
+      });
+    }
+  );
+}
+
 function _findAllCleaners(feedbacks, cb) {
   async.parallel(
     feedbacks.map(
@@ -49,7 +152,7 @@ function _findAllCleaners(feedbacks, cb) {
   );
 }
 
-function _updateFeedback(feedback, depart_cleaner, cb) {
+function _updateFeedback(feedback, cleaners, cb) {
   if (feedback.depart_cleaner) {
     cb(null, feedback);
     return;
@@ -63,7 +166,8 @@ function _updateFeedback(feedback, depart_cleaner, cb) {
     date: feedback.date,
     year: feedback.year,
     month: feedback.month,
-    depart_cleaner: depart_cleaner,
+    depart_cleaner: cleaners.depart_cleaner,
+    stayover_cleaner: cleaners.stayover_cleaner,
   };
   Feedback.findByIdAndUpdate(feedback._id, newFeedback, (err) => {
     if (err) {
