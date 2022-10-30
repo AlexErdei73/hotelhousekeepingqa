@@ -110,7 +110,14 @@ exports.results_monthly_get = function (req, res, next) {
     }
     const cleaners = results.cleaners;
     const feedbacks = results.feedbacks;
-    res.send(_analyse(cleaners, feedbacks));
+    res.render("results", {
+      title: "Analysis Results",
+      results: _analyse(cleaners, feedbacks).filter(
+        (result) => result.numberOfFeedbacks > 0
+      ),
+      page: 1,
+      date: date,
+    });
   });
 };
 

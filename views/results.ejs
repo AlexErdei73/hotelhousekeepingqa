@@ -1,0 +1,31 @@
+<%- include("_header") %>
+<h1><%= title %></h1>
+<table class="table table-primary table-sm table-bordered table-striped">
+  <head>
+    <tr>
+      <th>Cleaner</th>
+      <th>Active</th>
+      <th>Salt</th>
+      <th>Complain</th>
+      <th>Number</th>
+      <th>Avg.Score</th>
+      <th>Std.Dev.</th>
+      <th>Graph</th>
+    </tr>
+  </head>
+  <body>
+    <% results.forEach(result => { %>
+    <tr>
+      <td><%= result.name %></td>
+      <td></td>
+      <td><%= result.saltScore %></td>
+      <td><%= result.complainScore %></td>
+      <td><%= result.numberOfFeedbacks %></td>
+      <td><%= result.averageScore %></td>
+      <td><%= result.stdDev %></td>
+      <td><a href="#">Graph</a></td>
+    </tr>
+    <% }) %>
+  </body>
+</table>
+<%- include("_footer") %>
