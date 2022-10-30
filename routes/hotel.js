@@ -5,6 +5,7 @@ var service_controller = require("../controllers/serviceController");
 var hotel_controller = require("../controllers/hotelController");
 var page_controller = require("../controllers/pageController");
 var feedback_controller = require("../controllers/feedbackController");
+var results_controller = require("../controllers/resultsController");
 
 /* GET hotel listing. */
 router.get("/", hotel_controller.index);
@@ -28,6 +29,13 @@ router.post("/feedbacks", feedback_controller.feedbacks_post);
 router.get("/feedbacks/:date", feedback_controller.feedbacks_get);
 router.get("/feedback/create", feedback_controller.feedback_create_get);
 router.post("/feedback/create", feedback_controller.feedback_create_post);
+
+//Result Page Roots //
+router.get("/results/monthly/:date", results_controller.results_monthly_get);
+router.get(
+  "/results/yeartodate/:date",
+  results_controller.results_yeartodate_get
+);
 
 // Hotel Page Roots //
 router.get("/:date", hotel_controller.index);
