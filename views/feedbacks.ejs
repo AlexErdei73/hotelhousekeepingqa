@@ -5,7 +5,14 @@
     <label for="file-input" class="form-label">File To Upload</label>
     <input type="file" name="fileName" id="file-input" class="form-control" />
   </div>
-  <button type="submit" class="btn btn-primary">Upload</button>
+  <div class="row">
+    <div class="col-2">
+      <button type="submit" class="btn btn-primary">Upload</button>
+    </div>
+    <div class="col-2">
+      <a href="/hotel/results/monthly/<%= date.toISOString().slice(0, 10) %>" class="btn btn-primary">Analyse</a>
+    </div>    
+  </div>
 </form>
 <%- include("_formerrors") %>
 <hr />

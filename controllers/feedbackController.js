@@ -19,8 +19,7 @@ function _findDepartCleaner(feedback, cb) {
         return;
       }
       if (services.length === 0) {
-        const error = new Error("Cleaner cannot be found");
-        cb(error, null);
+        cb(null, null);
         return;
       }
       cb(null, services[0].cleaner);

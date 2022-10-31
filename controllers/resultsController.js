@@ -46,7 +46,7 @@ function _getMonthlyData(date, cb) {
   );
 }
 
-function _analyseCleaner(name, feedbacks) {
+function _analyseCleaner(name, active, feedbacks) {
   let numberOfFeedbacks = 0;
   const scores = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
   feedbacks.forEach((feedback) => {
@@ -72,27 +72,29 @@ function _analyseCleaner(name, feedbacks) {
           .reduce((prevValue, value) => prevValue + value, 0) /
         numberOfFeedbacks;
   const stdDev =
-    averageScoreSqare && averageScore
+    numberOfFeedbacks > 0
       ? Math.sqrt(averageScoreSqare - averageScore * averageScore)
       : NaN;
   return {
     name,
+    active,
     saltScore: numberOfFeedbacks ? (100 * saltScore).toFixed(2) : NaN,
     complainScore: numberOfFeedbacks ? (100 * complainScore).toFixed(2) : NaN,
     numberOfFeedbacks,
-    averageScore: averageScore ? averageScore.toFixed(2) : NaN,
-    stdDev: stdDev ? stdDev.toFixed(2) : NaN,
+    averageScore: numberOfFeedbacks ? averageScore.toFixed(2) : NaN,
+    stdDev: numberOfFeedbacks ? stdDev.toFixed(2) : NaN,
     scores,
   };
 }
 
 function _analyse(cleaners, feedbacks) {
   results = [];
-  results.push(_analyseCleaner("Total", feedbacks));
+  results.push(_analyseCleaner("Total", true, feedbacks));
   cleaners.forEach((cleaner) => {
     results.push(
       _analyseCleaner(
         cleaner.name,
+        cleaner.active,
         feedbacks.filter((feedback) => {
           return feedback.depart_cleaner.name === cleaner.name;
         })
