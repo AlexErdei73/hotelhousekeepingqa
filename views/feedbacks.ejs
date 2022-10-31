@@ -10,24 +10,29 @@
       <button type="submit" class="btn btn-primary">Upload</button>
     </div>
     <div class="col-3">
-      <a href="/hotel/results/monthly/<%= date.toISOString().slice(0, 10) %>" class="btn btn-primary">Analyse</a>
+      <a
+        href="/hotel/results/monthly/<%= date.toISOString().slice(0, 10) %>"
+        class="btn btn-primary"
+        id="analyse-anchor"
+        >Analyse</a
+      >
     </div>
     <div class="col">
       <div class="row">
         <div class="col-md-6">
           <div class="form-group">
             <label for="yeartodate" class="form-label">Year To Date</label>
-            <input type="checkbox" class="form-control-md" id="yeartodate">
+            <input type="checkbox" class="form-control-md" id="yeartodate" />
           </div>
         </div>
         <div class="col-md-6">
           <div class="form-group">
             <label for="stayover" class="form-label">Stay Over</label>
-            <input type="checkbox" class="form-control-md" id="stayover">
+            <input type="checkbox" class="form-control-md" id="stayover" />
           </div>
-        </div> 
-      </div> 
-    </div>  
+        </div>
+      </div>
+    </div>
   </div>
 </form>
 <%- include("_formerrors") %>
@@ -62,4 +67,5 @@
     <% }) %>
   </body>
 </table>
+<script src="/public/javascripts/feedbacks.js"></script>
 <%- include("_footer") %>
