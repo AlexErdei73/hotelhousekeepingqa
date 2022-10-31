@@ -101,7 +101,11 @@ function _analyse(cleaners, feedbacks) {
       )
     );
   });
-  return results;
+  return results.sort((resA, resB) => {
+    if (resA.active && !resB.active) return -1;
+    if (!resA.active && resB.active) return 1;
+    return 0;
+  });
 }
 
 exports.results_monthly_get = function (req, res, next) {

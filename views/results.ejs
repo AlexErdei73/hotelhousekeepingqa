@@ -17,7 +17,7 @@
     <% results.forEach(result => { %>
     <tr>
       <td><%= result.name %></td>
-      <td><%- result.active ? "active" : "past" %></td>
+      <td><%- result.name === "Total" ? "" : result.active ? "active" : "past" %></td>
       <td><%= result.saltScore %></td>
       <td><%= result.complainScore %></td>
       <td><%= result.numberOfFeedbacks %></td>
