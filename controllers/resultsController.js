@@ -13,8 +13,10 @@ function _getCleaners(cb) {
   });
 }
 
-function _getMonthlyFeedbacks(date, cb) {
-  Feedback.find({ year: getYear(date), month: getMonth(date) })
+function _getFeedbacks(date, yeartodate, cb) {
+  const query = { year: getYear(date), month: getMonth(date) };
+  if (yeartodate) query.month = { $lte: getMonth(date) };
+  Feedback.find(query)
     .populate("depart_cleaner")
     .populate("stayover_cleaner")
     .exec((err, feedbacks) => {
@@ -26,14 +28,14 @@ function _getMonthlyFeedbacks(date, cb) {
     });
 }
 
-function _getMonthlyData(date, cb) {
+function _getData(date, yeartodate, cb) {
   async.parallel(
     {
       cleaners(callback) {
         _getCleaners(callback);
       },
       feedbacks(callback) {
-        _getMonthlyFeedbacks(date, callback);
+        _getFeedbacks(date, yeartodate, callback);
       },
     },
     (err, results) => {
@@ -96,7 +98,7 @@ function _analyse(cleaners, feedbacks) {
         cleaner.name,
         cleaner.active,
         feedbacks.filter((feedback) => {
-          return feedback.depart_cleaner.name === cleaner.name;
+          return feedback.depart_cleaner ? feedback.depart_cleaner.name === cleaner.name : false;
         })
       )
     );
@@ -110,7 +112,7 @@ function _analyse(cleaners, feedbacks) {
 
 exports.results_monthly_get = function (req, res, next) {
   const date = new Date(req.params.date);
-  _getMonthlyData(date, (err, results) => {
+  _getData(date, false, (err, results) => {
     if (err) {
       return next(err);
     }
@@ -128,5 +130,20 @@ exports.results_monthly_get = function (req, res, next) {
 };
 
 exports.results_yeartodate_get = function (req, res, next) {
-  res.send("NOT IMPLEMENTED");
+  const date = new Date(req.params.date);
+  _getData(date, true, (err, results) => {
+    if (err) {
+      return next(err);
+    }
+    const cleaners = results.cleaners;
+    const feedbacks = results.feedbacks;
+    res.render("results", {
+      title: "Analysis Results",
+      results: _analyse(cleaners, feedbacks).filter(
+        (result) => result.numberOfFeedbacks > 0
+      ),
+      page: 1,
+      date: date,
+    });
+  });
 };
