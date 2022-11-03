@@ -1,0 +1,32 @@
+<%- include("_header") %>
+<h1><%= title %></h1>
+<div class="graph-container">
+
+  <div class="axe-percentage"></div>
+  <div class="percentage-label" style="bottom: calc(37.5% - 0.7em)">25%</div>
+  <div class="percentage-label" style="bottom: calc(55% - 0.7em)">50%</div>
+  <div class="percentage-label" style="bottom: calc(72.5% - 0.7em)">75%</div>
+
+  <div class="axe-score"></div>
+  <% [1, 2, 3, 4, 5, 6, 7, 8, 9, 10].forEach(score => { %>
+  <div class="score-label" style="left: <%- 5 + score * 8.5 %>%">
+    <%= score %>
+  </div>
+  <% }) %>
+  <div class="score-legend">Score</div>
+
+  <% results.forEach(result => { %>
+    <% const numberOfFeedbacks = result.numberOfFeedbacks;
+       result.scores.forEach((score, index) => {
+       if (index === 0) return;  
+       const percentage = score / numberOfFeedbacks * 100;
+       const height = percentage / 100 * 35;
+       const shift = result.name.trim() === "Total" ? 5.75 : 1.5 %>
+        <div class="bar <%- result.name.trim() === "Total" ? "bg-primary" : "bg-success" %>" 
+            style="padding-top: <%= height %>%; left: <%- shift + index * 8.5 %>%;"></div>
+    <% }) %>
+  <% }) %>
+
+
+</div>
+<%- include("_footer") %>

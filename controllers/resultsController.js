@@ -74,8 +74,12 @@ function _analyseCleaner(name, active, feedbacks) {
           .reduce((prevValue, value) => prevValue + value, 0) /
         numberOfFeedbacks;
   const stdDev =
-    numberOfFeedbacks > 0
-      ? Math.sqrt(averageScoreSqare - averageScore * averageScore)
+    numberOfFeedbacks > 1
+      ? Math.sqrt(
+          ((averageScoreSqare - averageScore * averageScore) *
+            numberOfFeedbacks) /
+            (numberOfFeedbacks - 1)
+        )
       : NaN;
   return {
     name,
@@ -98,7 +102,9 @@ function _analyse(cleaners, feedbacks) {
         cleaner.name,
         cleaner.active,
         feedbacks.filter((feedback) => {
-          return feedback.depart_cleaner ? feedback.depart_cleaner.name === cleaner.name : false;
+          return feedback.depart_cleaner
+            ? feedback.depart_cleaner.name === cleaner.name
+            : false;
         })
       )
     );
@@ -142,6 +148,48 @@ exports.results_yeartodate_get = function (req, res, next) {
       results: _analyse(cleaners, feedbacks).filter(
         (result) => result.numberOfFeedbacks > 0
       ),
+      page: 1,
+      date: date,
+    });
+  });
+};
+
+exports.results_monthly_graph_get = function (req, res, next) {
+  const date = new Date(req.params.date);
+  _getData(date, false, (err, results) => {
+    if (err) {
+      return next(err);
+    }
+    const cleaners = results.cleaners;
+    const feedbacks = results.feedbacks;
+    const cleaner = req.params.cleaner;
+    res.render("graph", {
+      title: `${cleaner}'s Scores`,
+      cleaner: cleaner,
+      results: _analyse(cleaners, feedbacks).filter((result) => {
+        return result.name.trim() === cleaner || result.name.trim() === "Total";
+      }),
+      page: 1,
+      date: date,
+    });
+  });
+};
+
+exports.results_yeartodate_graph_get = function (req, res, next) {
+  const date = new Date(req.params.date);
+  _getData(date, true, (err, results) => {
+    if (err) {
+      return next(err);
+    }
+    const cleaners = results.cleaners;
+    const feedbacks = results.feedbacks;
+    const cleaner = req.params.cleaner;
+    res.render("graph", {
+      title: `${cleaner}'s Scores`,
+      cleaner: cleaner,
+      results: _analyse(cleaners, feedbacks).filter((result) => {
+        return result.name.trim() === cleaner || result.name.trim() === "Total";
+      }),
       page: 1,
       date: date,
     });

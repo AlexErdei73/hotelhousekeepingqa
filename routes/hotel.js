@@ -37,6 +37,17 @@ router.get(
   results_controller.results_yeartodate_get
 );
 
+//Result Graph Page Roots //
+router.get(
+  "/results/monthly/graph/:date/:cleaner",
+  results_controller.results_monthly_graph_get
+);
+
+router.get(
+  "/results/yeartodate/graph/:date/:cleaner",
+  results_controller.results_yeartodate_graph_get
+);
+
 // Hotel Page Roots //
 router.get("/:date", hotel_controller.index);
 router.get("/:page/:date/:index", page_controller.page_get);

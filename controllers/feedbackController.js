@@ -8,20 +8,27 @@ const async = require("async");
 function _findDepartCleaner(feedback, cb) {
   Service.find({
     room: feedback.room._id,
-    type: "depart",
     date: { $lte: feedback.checkin_date },
   })
     .sort({ date: "desc" })
     .populate("cleaner")
     .exec((err, services) => {
       if (err) {
+        // we have error
         cb(err, null);
         return;
       }
       if (services.length === 0) {
+        // we don't have data
         cb(null, null);
         return;
       }
+      if (services[0].type !== "depart") {
+        // we have faulty data, because the room must have been cleaned as depart before checkin
+        cb(null, null);
+        return;
+      }
+      // we found the depart service before checkin
       cb(null, services[0].cleaner);
     });
 }
@@ -152,10 +159,10 @@ function _findAllCleaners(feedbacks, cb) {
 }
 
 function _updateFeedback(feedback, cleaners, cb) {
-  if (feedback.depart_cleaner) {
+  /*if (feedback.depart_cleaner) {
     cb(null, feedback);
     return;
-  }
+  }*/
   const newFeedback = {
     _id: feedback._id,
     checkin_date: feedback.checkin_date,

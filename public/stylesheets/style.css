@@ -59,3 +59,56 @@ td img {
 .image-container {
   height: fit-content;
 }
+
+.graph-container {
+  background: skyblue;
+  border: 1px solid black;
+  height: 0;
+  padding-top: 50%;
+  position: relative;
+}
+
+.axe-percentage {
+  width: 0;
+  height: 0;
+  padding-top: 40%;
+  border-left: 1px solid black;
+  position: absolute;
+  bottom: 10%;
+  left: 10%;
+}
+
+.axe-score {
+  width: 90%;
+  height: 0;
+  border-bottom: 1px solid black;
+  position: absolute;
+  bottom: 20%;
+  left: 5%;
+  z-index: 10;
+}
+
+.percentage-label {
+  position: absolute;
+  left: calc(10% - 2em);
+  bottom: 90%;
+}
+
+.score-label {
+  position: absolute;
+  bottom: calc(20% - 1.3em);
+  width: 9%;
+}
+
+.score-legend {
+  position: absolute;
+  bottom: calc(10% - 1.3em);
+  left: calc(51.5% - 1em);
+}
+
+.bar {
+  position: absolute;
+  width: 4.25%;
+  height: 0;
+  bottom: 20%;
+}
