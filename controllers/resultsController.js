@@ -131,6 +131,7 @@ exports.results_monthly_get = function (req, res, next) {
       ),
       page: 1,
       date: date,
+      yeartodate: false,
     });
   });
 };
@@ -150,6 +151,7 @@ exports.results_yeartodate_get = function (req, res, next) {
       ),
       page: 1,
       date: date,
+      yeartodate: true,
     });
   });
 };

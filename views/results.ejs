@@ -23,7 +23,7 @@
       <td><%= result.numberOfFeedbacks %></td>
       <td><%= result.averageScore %></td>
       <td><%= result.stdDev %></td>
-      <td><a href="#">Graph</a></td>
+      <td><a href="/hotel/results/<%- yeartodate ? "yeartodate" : "monthly" %>/graph/<%- date.toISOString().slice(0,10) %>/<%= result.name %>">Show</a></td>
     </tr>
     <% }) %>
   </body>
