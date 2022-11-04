@@ -15,6 +15,7 @@
   <% }) %>
   <div class="score-legend">Score</div>
 
+  <% const hotelSaltScore = results.find(result => result.name.trim() === "Total").saltScore; %>
   <% results.forEach(result => { %>
     <% const numberOfFeedbacks = result.numberOfFeedbacks;
        result.scores.forEach((score, index) => {
@@ -22,7 +23,7 @@
        const percentage = score / numberOfFeedbacks * 100;
        const height = percentage / 100 * 35;
        const shift = result.name.trim() === "Total" ? 5.625 : 1.625 %>
-        <div class="bar <%- result.name.trim() === "Total" ? "bg-primary" : "bg-success" %>" 
+        <div class="bar <%- result.name.trim() === "Total" ? "bg-primary" : hotelSaltScore <= result.saltScore ? "bg-success" : "bg-danger" %>" 
             style="padding-top: <%= height %>%; left: <%- shift + index * 8.5 %>%;"></div>
     <% }) %>
   <% }) %>
