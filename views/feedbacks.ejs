@@ -10,12 +10,7 @@
       <button type="submit" class="btn btn-primary">Upload</button>
     </div>
     <div class="col-3">
-      <a
-        href="/hotel/results/monthly/<%= date.toISOString().slice(0, 10) %>"
-        class="btn btn-primary"
-        id="analyse-anchor"
-        >Analyse</a
-      >
+      <a href="/hotel/results/depart/monthly/<%= date.toISOString().slice(0, 10) %>" class="btn btn-primary" id="analyse-anchor">Analyse</a>
     </div>
     <div class="col">
       <div class="row">
@@ -37,8 +32,8 @@
 </form>
 <%- include("_formerrors") %>
 <hr />
-<table
-  class="table table-primary table-bordered table-sm table-striped table-width-limited">
+<table class="table table-primary table-bordered table-sm table-striped table-width-limited">
+
   <head>
     <tr>
       <th scope="col">Checkin</th>
@@ -49,6 +44,7 @@
       <th scope="col">CleanerS/O</th>
     </tr>
   </head>
+
   <body>
     <% feedbacks.forEach(feedback => { %>
     <tr>

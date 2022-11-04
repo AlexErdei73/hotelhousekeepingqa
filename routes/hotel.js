@@ -31,21 +31,45 @@ router.get("/feedback/create", feedback_controller.feedback_create_get);
 router.post("/feedback/create", feedback_controller.feedback_create_post);
 
 //Result Page Roots //
-router.get("/results/monthly/:date", results_controller.results_monthly_get);
 router.get(
-  "/results/yeartodate/:date",
-  results_controller.results_yeartodate_get
+  "/results/depart/monthly/:date",
+  results_controller.results_depart_monthly_get
+);
+
+router.get(
+  "/results/depart/yeartodate/:date",
+  results_controller.results_depart_yeartodate_get
+);
+
+router.get(
+  "/results/stayover/monthly/:date",
+  results_controller.results_stayover_monthly_get
+);
+
+router.get(
+  "/results/stayover/yeartodate/:date",
+  results_controller.results_stayover_yeartodate_get
 );
 
 //Result Graph Page Roots //
 router.get(
-  "/results/monthly/graph/:date/:cleaner",
-  results_controller.results_monthly_graph_get
+  "/results/depart/monthly/graph/:date/:cleaner",
+  results_controller.results_depart_monthly_graph_get
 );
 
 router.get(
-  "/results/yeartodate/graph/:date/:cleaner",
-  results_controller.results_yeartodate_graph_get
+  "/results/depart/yeartodate/graph/:date/:cleaner",
+  results_controller.results_depart_yeartodate_graph_get
+);
+
+router.get(
+  "/results/stayover/monthly/graph/:date/:cleaner",
+  results_controller.results_stayover_monthly_graph_get
+);
+
+router.get(
+  "/results/stayover/yeartodate/graph/:date/:cleaner",
+  results_controller.results_stayover_yeartodate_graph_get
 );
 
 // Hotel Page Roots //

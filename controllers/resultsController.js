@@ -13,9 +13,10 @@ function _getCleaners(cb) {
   });
 }
 
-function _getFeedbacks(date, yeartodate, cb) {
+function _getFeedbacks(date, yeartodate, stayover, cb) {
   const query = { year: getYear(date), month: getMonth(date) };
   if (yeartodate) query.month = { $lte: getMonth(date) };
+  if (stayover) query.stayover_cleaner = { $ne: null };
   Feedback.find(query)
     .populate("depart_cleaner")
     .populate("stayover_cleaner")
@@ -28,14 +29,14 @@ function _getFeedbacks(date, yeartodate, cb) {
     });
 }
 
-function _getData(date, yeartodate, cb) {
+function _getData(date, yeartodate, stayover, cb) {
   async.parallel(
     {
       cleaners(callback) {
         _getCleaners(callback);
       },
       feedbacks(callback) {
-        _getFeedbacks(date, yeartodate, callback);
+        _getFeedbacks(date, yeartodate, stayover, callback);
       },
     },
     (err, results) => {
@@ -116,9 +117,9 @@ function _analyse(cleaners, feedbacks) {
   });
 }
 
-exports.results_monthly_get = function (req, res, next) {
+exports.results_depart_monthly_get = function (req, res, next) {
   const date = new Date(req.params.date);
-  _getData(date, false, (err, results) => {
+  _getData(date, false, false, (err, results) => {
     if (err) {
       return next(err);
     }
@@ -132,13 +133,14 @@ exports.results_monthly_get = function (req, res, next) {
       page: 1,
       date: date,
       yeartodate: false,
+      stayover: false,
     });
   });
 };
 
-exports.results_yeartodate_get = function (req, res, next) {
+exports.results_depart_yeartodate_get = function (req, res, next) {
   const date = new Date(req.params.date);
-  _getData(date, true, (err, results) => {
+  _getData(date, true, false, (err, results) => {
     if (err) {
       return next(err);
     }
@@ -152,13 +154,56 @@ exports.results_yeartodate_get = function (req, res, next) {
       page: 1,
       date: date,
       yeartodate: true,
+      stayover: false,
     });
   });
 };
 
-exports.results_monthly_graph_get = function (req, res, next) {
+exports.results_stayover_monthly_get = function (req, res, next) {
   const date = new Date(req.params.date);
-  _getData(date, false, (err, results) => {
+  _getData(date, false, true, (err, results) => {
+    if (err) {
+      return next(err);
+    }
+    const cleaners = results.cleaners;
+    const feedbacks = results.feedbacks;
+    res.render("results", {
+      title: "Analysis Results",
+      results: _analyse(cleaners, feedbacks).filter(
+        (result) => result.numberOfFeedbacks > 0
+      ),
+      page: 1,
+      date: date,
+      yeartodate: false,
+      stayover: true,
+    });
+  });
+};
+
+exports.results_stayover_yeartodate_get = function (req, res, next) {
+  const date = new Date(req.params.date);
+  _getData(date, true, true, (err, results) => {
+    if (err) {
+      return next(err);
+    }
+    const cleaners = results.cleaners;
+    const feedbacks = results.feedbacks;
+    res.render("results", {
+      title: "Analysis Results",
+      results: _analyse(cleaners, feedbacks).filter(
+        (result) => result.numberOfFeedbacks > 0
+      ),
+      page: 1,
+      date: date,
+      yeartodate: true,
+      stayover: true,
+    });
+  });
+};
+
+exports.results_depart_monthly_graph_get = function (req, res, next) {
+  const date = new Date(req.params.date);
+  _getData(date, false, false, (err, results) => {
     if (err) {
       return next(err);
     }
@@ -177,9 +222,51 @@ exports.results_monthly_graph_get = function (req, res, next) {
   });
 };
 
-exports.results_yeartodate_graph_get = function (req, res, next) {
+exports.results_depart_yeartodate_graph_get = function (req, res, next) {
   const date = new Date(req.params.date);
-  _getData(date, true, (err, results) => {
+  _getData(date, true, false, (err, results) => {
+    if (err) {
+      return next(err);
+    }
+    const cleaners = results.cleaners;
+    const feedbacks = results.feedbacks;
+    const cleaner = req.params.cleaner;
+    res.render("graph", {
+      title: `${cleaner}'s Scores`,
+      cleaner: cleaner,
+      results: _analyse(cleaners, feedbacks).filter((result) => {
+        return result.name.trim() === cleaner || result.name.trim() === "Total";
+      }),
+      page: 1,
+      date: date,
+    });
+  });
+};
+
+exports.results_stayover_monthly_graph_get = function (req, res, next) {
+  const date = new Date(req.params.date);
+  _getData(date, false, true, (err, results) => {
+    if (err) {
+      return next(err);
+    }
+    const cleaners = results.cleaners;
+    const feedbacks = results.feedbacks;
+    const cleaner = req.params.cleaner;
+    res.render("graph", {
+      title: `${cleaner}'s Scores`,
+      cleaner: cleaner,
+      results: _analyse(cleaners, feedbacks).filter((result) => {
+        return result.name.trim() === cleaner || result.name.trim() === "Total";
+      }),
+      page: 1,
+      date: date,
+    });
+  });
+};
+
+exports.results_stayover_yeartodate_graph_get = function (req, res, next) {
+  const date = new Date(req.params.date);
+  _getData(date, true, true, (err, results) => {
     if (err) {
       return next(err);
     }
