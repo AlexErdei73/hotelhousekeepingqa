@@ -6,7 +6,7 @@ const async = require("async");
 const hotel_controller = require("../controllers/hotelController");
 
 function _service_create_get(res, next, service, errors) {
-  Cleaner.find({ active: true })
+    Cleaner.find({ active: true })
     .sort({ first_name: "asc" })
     .exec(function (err, cleaners) {
       if (err) {
@@ -42,6 +42,11 @@ exports.service_create_post = [
   body("type")
     .isIn(["stay over", "linen change", "depart", "no service", "DND"])
     .withMessage("Service type is required"),
+  body("audit_score")
+    .optional({ checkFalsy: true })
+    .isInt({ min: 0, max: 100, allow_leading_zeros: false })
+    .withMessage("Audit score is an integer between 0 and 100")
+    .toInt(),
   function (req, res, next) {
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
@@ -50,6 +55,7 @@ exports.service_create_post = [
         roomnumber: req.body.roomnumber,
         cleaner: req.body.cleaner,
         type: req.body.type,
+        audit_score: req.body.audit_score,
       };
       _service_create_get(res, next, service, errors.array());
       return;
@@ -65,6 +71,7 @@ exports.service_create_post = [
           roomnumber: req.body.roomnumber,
           cleaner: req.body.cleaner,
           type: req.body.type,
+          audit_score: req.body.audit_score,
         };
         const errors = [];
         errors.push(error);
@@ -85,6 +92,7 @@ exports.service_create_post = [
               roomnumber: req.body.roomnumber,
               cleaner: req.body.cleaner,
               type: req.body.type,
+              audit_score: req.body.audit_score,
             };
             _service_create_get(res, next, service, errors);
             return;
@@ -94,6 +102,7 @@ exports.service_create_post = [
             room: room._id,
             cleaner: req.body.cleaner,
             type: req.body.type,
+            audit_score: req.body.audit_score,
           });
           service.save((err) => {
             if (err) {
