@@ -62,15 +62,17 @@ exports.page_get = function(req, res, next) {
             const serviceRecords = rooms.map((room) => {
                 const roomnumber = room.number;
                 const service = services ? services.find(service => service.room.number === roomnumber) : undefined;
-                let cleaner, type;
+                let cleaner, type, audit_score;
                 if (!service) {
                     cleaner = { _id: "", name: ""};
                     type = "";
+                    audit_score = "";
                 } else {
                     cleaner = { _id: service.cleaner._id, name: service.cleaner.name };
                     type = service.type;
+                    audit_score = service.audit_score >= 0 ? service.audit_score : ""
                 }
-                return { roomnumber, cleaner, type }
+                return { roomnumber, cleaner, type, audit_score }
             })
             res.render("pageview", { 
                 page: req.params.page,
@@ -100,6 +102,11 @@ exports.page_post = [
     body("type")
         .isIn([" ","stay over","linen change","depart","no service","DND"])
         .withMessage("Service type is required"),
+    body("audit_score")
+        .optional({ checkFalsy: true })
+        .isInt({min:0, max:100, allow_leading_zeros: false})
+        .withMessage("Audit score is an integer between 0 and 100")
+        .toInt(),
     function(req, res, next) {
         const errors = validationResult(req);
         if (!errors.isEmpty()) {
@@ -141,6 +148,7 @@ exports.page_post = [
                                         date: new Date(req.body.date),
                                         cleaner: req.body.cleaner,
                                         type: req.body.type,
+                                        audit_score: req.body.audit_score,
                                         _id: services[0]._id
                                     }, {}, (err) => {
                                         if (err) {
@@ -155,7 +163,8 @@ exports.page_post = [
                         date: req.body.date,
                         room: room._id,
                         cleaner: req.body.cleaner,
-                        type: req.body.type
+                        type: req.body.type,
+                        audit_score: req.body.audit_score,
                     })
                     service.save((err) => {
                         if (err) {

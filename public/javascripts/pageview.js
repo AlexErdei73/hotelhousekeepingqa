@@ -4,24 +4,30 @@ const nextAnchor = document.querySelector('#next');
 const backAnchor = document.querySelector('#back');
 const cleanerSelect = document.querySelector('#cleaner-select');
 const typeSelects = document.querySelectorAll('td select');
+const auditInput = document.querySelector('#audit')
 // form elements on the invisible form
 const dateFormInput = document.querySelector('#date');
 const roomnumberFormInput = document.querySelector('#roomnumber');
 const cleanerFormSelect = document.querySelector('#cleaner');
 const typeFormSelect = document.querySelector('#type');
 const indexInput = document.querySelector('#index');
+const auditScoreFormInput = document.querySelector('#audit-score');
 const form = document.querySelector('form');
 
 const page = Number(pageInput.value);
 const date = new Date(dateInput.value);
-const index = Number(indexInput.value);
-const cleanerId = typeSelects[index].getAttribute("cleaner");
+let index = Number(indexInput.value);
+let cleanerId = typeSelects[index].getAttribute("cleaner");
+let auditScore = typeSelects[index].getAttribute("audit-score");
 
 //focus the right typeSelect
 typeSelects[index].focus();
 
 //set cleanerSelect
 cleanerSelect.value = cleanerId;
+
+//set auditInput
+auditInput.value = auditScore;
 
 // make >> and << anchors work
 function nextURL() {
@@ -65,11 +71,37 @@ function onTypeChange(event) {
     const newType = event.target.value;
     const roomnumber = event.target.getAttribute("roomnumber");
     typeFormSelect.value = newType;
-    console.log(typeFormSelect.value);
     roomnumberFormInput.value = roomnumber;
+    auditScoreFormInput.value = auditScore;
     const index = event.target.getAttribute("index");
     indexInput.value = index;
     form.submit();
 }
 
-typeSelects.forEach(select => select.addEventListener("change", onTypeChange));
+function onTypeFocus(event) {
+    const input = event.target;
+    index = input.getAttribute("index");
+    auditScore = input.getAttribute("audit-score");
+    auditInput.value = auditScore;
+}
+
+typeSelects.forEach(select => {
+    select.addEventListener("change", onTypeChange);
+    select.addEventListener("focus", onTypeFocus);
+});
+
+function onAuditInputChange() {
+    const newAuditScore = auditInput.value;
+    if (newAuditScore === auditScore) return;
+    if (!cleanerId) return;
+    const type = typeSelects[index].value;
+    if (!type) return;
+    const roomnumber = typeSelects[index].getAttribute("roomnumber");
+    typeFormSelect.value = type;
+    roomnumberFormInput.value = roomnumber;
+    auditScoreFormInput.value = newAuditScore;
+    indexInput.value = index;
+    form.submit();
+}
+
+auditInput.addEventListener("change", onAuditInputChange);

@@ -1,48 +1,59 @@
 <%- include("_header") %>
 <div class="row">
-    <div class="col-10 col-md-6">
-        <table class="table table-primary table-sm table-bordered table-striped mt-3">
-            <thead>
-                <tr>
-                    <th>Room</th>
-                    <th>Cleaner</th>
-                    <th>Type</th>
-                </tr>
-            </thead>
-            <tbody>
-                <% serviceRecords.forEach(function(service, index) { %>
-                    <tr>
-                        <td><%= service.roomnumber %></td>
-                        <td><%= service.cleaner.name %></td>
-                        <td>
-                            <select index="<%= index %>" roomnumber="<%= service.roomnumber %>" cleaner="<%= service.cleaner._id %>" class="form-control form-control-sm">
-                                <option value=" " <%- service.type==="" ? "selected" : "" %> ></option>
-                                <option value="stay over" <%- service.type==="stay over" ? "selected" : "" %> >Stay Over</option>
-                                <option value="linen change" <%- service.type==="linen change" ? "selected" : "" %> >Linen Change</option>
-                                <option value="depart" <%- service.type==="depart" ? "selected" : "" %> >Depart</option>
-                                <option value="no service" <%- service.type==="no service" ? "selected" : "" %> >No Service</option>
-                                <option value="DND" <%- service.type==="DND" ? "selected" : "" %> >DND</option>
-                            </select>
-                        </td>
-                    </tr> 
-                <% }) %> 
-            </tbody>
-        </table>
-    </div>
-    <div class="col-2">
-        <a href="" class="btn btn-primary d-block mt-3" id="next">>></a>
-        <hr>
-        <a href="" class="btn btn-primary d-block" id="back"><<</a>
+  <div class="col-10 col-md-6">
+    <table class="table table-primary table-sm table-bordered table-striped mt-3">
+      <thead>
+        <tr>
+          <th>Room</th>
+          <th>Cleaner</th>
+          <th>Type</th>
+          <th>Audit</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% serviceRecords.forEach(function(service, index) { %>
+        <tr>
+          <td><%= service.roomnumber %></td>
+          <td><%= service.cleaner.name %></td>
+          <td>
+            <select 
+                index="<%= index %>" 
+                roomnumber="<%= service.roomnumber %>" 
+                cleaner="<%= service.cleaner._id %>"
+                audit-score="<%= service.audit_score %>" 
+                class="form-control form-control-sm">
+              <option value=" " <%- service.type==="" ? "selected" : "" %>></option>
+              <option value="stay over" <%- service.type==="stay over" ? "selected" : "" %>>Stay Over</option>
+              <option value="linen change" <%- service.type==="linen change" ? "selected" : "" %>>Linen Change</option>
+              <option value="depart" <%- service.type==="depart" ? "selected" : "" %>>Depart</option>
+              <option value="no service" <%- service.type==="no service" ? "selected" : "" %>>No Service</option>
+              <option value="DND" <%- service.type==="DND" ? "selected" : "" %>>DND</option>
+            </select>
+          </td>
+          <td><%= service.audit_score %></td>
+        </tr>
+        <% }) %>
+      </tbody>
+    </table>
+  </div>
+  <div class="col-2">
+    <a href="" class="btn btn-primary d-block mt-3" id="next">>></a>
+    <hr>
+    <a href="" class="btn btn-primary d-block" id="back"><<</a>
         <hr>
         <div class="form-group">
-            <label for="cleaner-select" class="form-label">Cleaner</label>
-            <select id="cleaner-select" class="form-control">
-                <% cleaners.forEach(function(cleaner){ %>
-                    <option value="<%= cleaner._id %>"><%= cleaner.name %></option>
-                <% }) %> 
-            </select>
+          <label for="cleaner-select" class="form-label">Cleaner</label>
+          <select id="cleaner-select" class="form-control">
+            <% cleaners.forEach(function(cleaner){ %>
+            <option value="<%= cleaner._id %>"><%= cleaner.name %></option>
+            <% }) %>
+          </select>
         </div>
-    </div>
+        <div class="form-group">
+            <label for="audit" class="form-label">Audit Score</label>
+            <input type="number" min="0" max="100" id="audit" class="form-control" value="<%= serviceRecords[index].audit_score %>">
+        </div>
+  </div>
 </div>
 
 <%- include("_service_form") %>
