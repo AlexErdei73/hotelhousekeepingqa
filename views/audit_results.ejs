@@ -1,0 +1,23 @@
+<%- include("_header") %>
+    <h1><%= title %></h1>
+    <table class="table table-sm table-primary table-bordered table-striped table-width-limited">
+        <head>
+            <tr>
+                <th>Cleaner</th>
+                <th>Average</th>
+                <th>Number</th>
+                <th>Std.Dev.</th>
+            </tr>
+        </head>
+        <body>
+            <% audit_results.forEach(result => { %>
+                <tr>
+                    <td><%= result.name %></td>
+                    <td><%= result.average %></td>
+                    <td><%= result.n %></td>
+                    <td><%= result.stdDev %></td>
+                </tr>
+            <% }) %> 
+        </body>
+    </table>
+<%- include("_footer") %> 

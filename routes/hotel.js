@@ -6,6 +6,7 @@ var hotel_controller = require("../controllers/hotelController");
 var page_controller = require("../controllers/pageController");
 var feedback_controller = require("../controllers/feedbackController");
 var results_controller = require("../controllers/resultsController");
+var audit_controller = require("../controllers/auditController");
 
 /* GET hotel listing. */
 router.get("/", hotel_controller.index);
@@ -71,6 +72,9 @@ router.get(
   "/results/stayover/yeartodate/graph/:date/:cleaner",
   results_controller.results_stayover_yeartodate_graph_get
 );
+// Hotel audit roots //
+router.get("/audit/:interval/:date", audit_controller.audit_results_get);
+
 
 // Hotel Page Roots //
 router.get("/:date", hotel_controller.index);

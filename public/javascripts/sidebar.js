@@ -6,6 +6,7 @@ const dateInputElement = document.querySelector('input[type="date"]');
 const pageAnchor = document.querySelector("#page-anchor");
 const homeAnchor = document.querySelector("#home-anchor");
 const feedbacksAnchor = document.querySelector('#feedbacks-anchor');
+const auditAnchor = document.querySelector("#audit-anchor");
 const MAX_PAGE = Number(pageInputElement.max);
 const MIN_PAGE = Number(pageInputElement.min);
 
@@ -48,10 +49,15 @@ function getFeedbacksURL() {
   return `/hotel/feedbacks/${getDate()}`;
 }
 
+function getAuditAnchorURL() {
+  return `/hotel/audit/daily/${getDate()}`;
+}
+
 function handleChange() {
   pageAnchor.href = getPageURL();
   homeAnchor.href = getHomeURL();
   feedbacksAnchor.href = getFeedbacksURL();
+  auditAnchor.href = getAuditAnchorURL();
 }
 
 pageInputElement.addEventListener("change", handleChange);
