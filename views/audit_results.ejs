@@ -1,12 +1,24 @@
 <%- include("_header") %>
     <h1><%= title %></h1>
+    <div class="form-check form-check-inline">
+        <input class="form-check-input text-primary checkbox-color " type="radio" name="interval" id="inlineRadioDaily" value="daily" checked>
+        <label class="form-check-label" for="inlineRadioDaily">Daily</label>
+    </div>
+    <div class="form-check form-check-inline">
+        <input class="form-check-input text-primary checkbox-color" type="radio" name="interval" id="inlineRadioMonthly" value="monthly">
+        <label class="form-check-label" for="inlineRadioMonthly">Monthly</label>
+    </div>
+    <div class="form-check form-check-inline">
+        <input class="form-check-input text-primary checkbox-color" type="radio" name="interval" id="inlineRadioYeartodate" value="yeartodate">
+        <label class="form-check-label" for="inlineRadioYeartodate">Year To Date</label>
+    </div>
     <table class="table table-sm table-primary table-bordered table-striped table-width-limited">
         <head>
             <tr>
-                <th>Cleaner</th>
-                <th>Average</th>
-                <th>Number</th>
-                <th>Std.Dev.</th>
+                <th span="col">Cleaner</th>
+                <th span="col">Average</th>
+                <th span="col">Number</th>
+                <th span="col">Std.Dev.</th>
             </tr>
         </head>
         <body>
