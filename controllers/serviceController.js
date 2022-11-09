@@ -6,7 +6,7 @@ const async = require("async");
 const hotel_controller = require("../controllers/hotelController");
 
 function _service_create_get(res, next, service, errors) {
-    Cleaner.find({ active: true })
+  Cleaner.find({ active: true })
     .sort({ first_name: "asc" })
     .exec(function (err, cleaners) {
       if (err) {
@@ -21,6 +21,7 @@ function _service_create_get(res, next, service, errors) {
         service,
         errors,
         formVisible: true,
+        password: "",
       });
     });
 }
@@ -47,6 +48,11 @@ exports.service_create_post = [
     .isInt({ min: 0, max: 100, allow_leading_zeros: false })
     .withMessage("Audit score is an integer between 0 and 100")
     .toInt(),
+  body("password")
+    .isLength({ min: 1 })
+    .escape()
+    .withMessage("Password must be specified"),
+
   function (req, res, next) {
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
@@ -95,6 +101,22 @@ exports.service_create_post = [
               audit_score: req.body.audit_score,
             };
             _service_create_get(res, next, service, errors);
+            return;
+          }
+          //We validate the password
+          const password = process.env.PASSWORD;
+          if (password !== req.body.password) {
+            //Password is invalid
+            const service = {
+              date: req.body.date,
+              roomnumber: req.body.roomnumber,
+              cleaner: req.body.cleaner,
+              type: req.body.type,
+              audit_score: req.body.audit_score,
+            };
+            _service_create_get(res, next, service, [
+              new Error("Invalid Password"),
+            ]);
             return;
           }
           const service = new Service({
@@ -273,7 +295,9 @@ function _getServices(lines, date, cb) {
             date: service.date,
             type: service.type,
             cleaner: cleaners.find(
-              (cleaner) => cleaner.name_id.toLowerCase() === service.cleanerName.toLowerCase()
+              (cleaner) =>
+                cleaner.name_id.toLowerCase() ===
+                service.cleanerName.toLowerCase()
             )._id,
             room: rooms.find((room) => room.number === service.roomnumber)._id,
           };
