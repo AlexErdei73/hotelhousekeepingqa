@@ -74,8 +74,10 @@ exports.getDiaryViewDates = function (date) {
   const startDate = subDay(firstOfMonth, sub);
   const diaryViewDates = [];
   for (let i = 0; i < 42; i++) {
-    //We need to go back to 00:00 time to pass the database query 
-    diaryViewDates.push(new Date(addDays(startDate, i).toISOString().split('T')[0]));
+    //We need to go back to 00:00 time to pass the database query
+    diaryViewDates.push(
+      new Date(addDays(startDate, i).toISOString().split("T")[0])
+    );
   }
   return diaryViewDates;
 };
@@ -127,6 +129,7 @@ exports.index = function (req, res, next) {
       service_details,
       diary_dates: exports.getDiaryViewDates(date),
       isDataOnDates: results[1],
+      password: "",
     });
   });
 };

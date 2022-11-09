@@ -27,25 +27,22 @@
   <div class="col-sm-6">
     <div class="row">
       <div class="col">
-        <form
-      action="/hotel/service/upload"
-      method="POST"
-      encType="multipart/form-data">
-      <div class="form-group">
-        <label for="file-input" class="form-label">File To Upload</label>
-        <input
-          type="file"
-          name="fileName"
-          id="file-input"
-          class="form-control" />
-      </div>
-      <button type="submit" class="btn btn-primary">Upload</button>
-    </form>
-    <%- include("_formerrors") %>
+        <form action="/hotel/service/upload" method="POST" encType="multipart/form-data">
+          <div class="form-group">
+            <label for="file-input" class="form-label">File To Upload</label>
+            <input type="file" name="fileName" id="file-input" class="form-control" />
+          </div>
+          <div class="form-group">
+            <label for="password" class="form-label">Password*</label>
+            <input type="password" name="password" id="password" class="form-control" required value="<%- password ? password : "" %>">
+          </div>
+          <button type="submit" class="btn btn-primary">Upload</button>
+        </form>
+        <%- include("_formerrors") %>
       </div>
     </div>
     <hr>
-    <%- include("_diary_view") %> 
+    <%- include("_diary_view") %>
   </div>
 </div>
 <%- include("_footer") %>

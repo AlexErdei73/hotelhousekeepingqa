@@ -165,11 +165,19 @@ function _handle_file_error(req, res, message) {
       service_details,
       diary_dates: hotel_controller.getDiaryViewDates(date),
       isDataOnDates: results[1],
+      password: "",
     });
   });
 }
 
 exports.services_upload_post = function (req, res, next) {
+  //Password validation
+  const password = process.env.PASSWORD;
+  if (password !== req.body.password) {
+    //Password is invalid
+    _handle_file_error(req, res, "Invalid Password");
+    return;
+  }
   if (!req.files) {
     _handle_file_error(req, res);
     return;
