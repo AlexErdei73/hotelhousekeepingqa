@@ -1,15 +1,15 @@
 <%- include("_header") %>
     <h1><%= title %></h1>
     <div class="form-check form-check-inline">
-        <input class="form-check-input text-primary checkbox-color " type="radio" name="interval" id="inlineRadioDaily" value="daily" checked>
+        <input class="form-check-input text-primary checkbox-color " type="radio" name="interval" id="inlineRadioDaily" value="daily" <%- interval === "daily" ? "checked" : "" %>>
         <label class="form-check-label" for="inlineRadioDaily">Daily</label>
     </div>
     <div class="form-check form-check-inline">
-        <input class="form-check-input text-primary checkbox-color" type="radio" name="interval" id="inlineRadioMonthly" value="monthly">
+        <input class="form-check-input text-primary checkbox-color" type="radio" name="interval" id="inlineRadioMonthly" value="monthly" <%- interval === "monthly" ? "checked" : "" %>>
         <label class="form-check-label" for="inlineRadioMonthly">Monthly</label>
     </div>
     <div class="form-check form-check-inline">
-        <input class="form-check-input text-primary checkbox-color" type="radio" name="interval" id="inlineRadioYeartodate" value="yeartodate">
+        <input class="form-check-input text-primary checkbox-color" type="radio" name="interval" id="inlineRadioYeartodate" value="yeartodate" <%- interval === "yeartodate" ? "checked" : "" %>>
         <label class="form-check-label" for="inlineRadioYeartodate">Year To Date</label>
     </div>
     <table class="table table-sm table-primary table-bordered table-striped table-width-limited">
@@ -32,4 +32,5 @@
             <% }) %> 
         </body>
     </table>
+    <script src="/public/javascripts/auditresults.js"></script>
 <%- include("_footer") %> 

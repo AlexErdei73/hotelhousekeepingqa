@@ -94,6 +94,7 @@ exports.audit_results_get = function(req, res, next) {
                 date,
                 audit_results,
                 page: 1,
+                interval: req.params.interval
             })
         })
     })
