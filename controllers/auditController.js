@@ -13,8 +13,33 @@ function _getCleaners(cb) {
     });
   }
 
-function _getAuditScores(cleaner, date, cb) {
-    const query = { date: date, audit_score: { $gte: 0 } };
+function _getAuditScores(cleaner, date, interval, cb) {
+    const query = { audit_score: { $gte: 0 } };
+    const dateStringWords = date.toISOString().slice(0, 10).split('-');
+    const year = dateStringWords[0];
+    const month = dateStringWords[1];
+    if (interval === "monthly") {
+      let nextMonth = (Number(month) + 1).toString();
+      if (nextMonth.length === 1) nextMonth = '0' + nextMonth;
+      const firstOfMonth = new Date(`${year}-${month}-01`);
+      let firstOfNextMonth;
+      if (month !== "12") firstOfNextMonth = new Date(`${year}-${nextMonth}-01`);
+        else {
+            const nextYear = (Number(year) + 1).toString();
+            firstOfNextMonth = `${nextYear}-01-01`;
+        }
+      query.date = { $gte: firstOfMonth, $lt: firstOfNextMonth };
+    } else if (interval === "yeartodate") {
+      const firstDayOfYear = new Date(`${year}-01-01`);
+      query.date = { $gte: firstDayOfYear, $lte: date };
+    } else if (interval === "daily") {
+        query.date = date;
+    } else {
+        const error = new Error('Not found');
+        error.status = 404;
+        cb(error, null);
+        return;
+    }
     if (cleaner) query.cleaner = cleaner._id;
     Service.find(query)
     .exec((err, services) => {
@@ -50,7 +75,7 @@ exports.audit_results_get = function(req, res, next) {
         const date = new Date(req.params.date);
         cleaners.unshift(null);
         async.parallel(cleaners.map(cleaner => function(callback) {
-            _getAuditScores(cleaner, date, callback);
+            _getAuditScores(cleaner, date, req.params.interval, callback);
         }),
         (err, results) => {
             if (err) {
