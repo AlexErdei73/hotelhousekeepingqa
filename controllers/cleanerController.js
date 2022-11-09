@@ -1,5 +1,6 @@
 const Cleaner = require("../models/cleaner");
 const { body, validationResult } = require("express-validator");
+require("dotenv").config();
 
 exports.cleaner_list = function (req, res, next) {
   Cleaner.find()
@@ -47,7 +48,10 @@ exports.cleaner_create_post = [
     .withMessage("Cleaner Active must be either true or false"),
   body("start_date").optional({ checkFalsy: true }).isISO8601().toDate(),
   body("end_date").optional({ checkFalsy: true }).isISO8601().toDate(),
-
+  body("password")
+    .isLength({ min: 1 })
+    .escape()
+    .withMessage("Password must be specified"),
   //this is our middlewear
   (req, res, next) => {
     //extract the validation errors
@@ -61,6 +65,19 @@ exports.cleaner_create_post = [
         page: 1,
         cleaner: req.body,
         errors: errors.array(),
+      });
+      return;
+    }
+    //We validate the password
+    const password = process.env.PASSWORD;
+    if (password !== req.body.password) {
+      //Password is invalid
+      res.render("cleaner_form", {
+        title: "Create Cleaner",
+        date: new Date(),
+        page: 1,
+        cleaner: req.body,
+        errors: [new Error("Invalid Password")],
       });
       return;
     }
@@ -140,6 +157,10 @@ exports.cleaner_update_post = [
     .withMessage("Cleaner Active must be either true or false"),
   body("start_date").optional({ checkFalsy: true }).isISO8601().toDate(),
   body("end_date").optional({ checkFalsy: true }).isISO8601().toDate(),
+  body("password")
+    .isLength({ min: 1 })
+    .escape()
+    .withMessage("Password must be specified"),
 
   //this is our middlewear
   (req, res, next) => {
@@ -154,6 +175,19 @@ exports.cleaner_update_post = [
         page: 1,
         cleaner: req.body,
         errors: errors.array(),
+      });
+      return;
+    }
+    //We validate the password
+    const password = process.env.PASSWORD;
+    if (password !== req.body.password) {
+      //Password is invalid
+      res.render("cleaner_form", {
+        title: "Create Cleaner",
+        date: new Date(),
+        page: 1,
+        cleaner: req.body,
+        errors: [new Error("Invalid Password")],
       });
       return;
     }
