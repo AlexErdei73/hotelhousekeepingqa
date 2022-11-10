@@ -245,6 +245,8 @@ function _getDate(fileName) {
   const day = "01";
   const month = fileName.slice(4, 6);
   const year = fileName.slice(7, 11);
+  if (isNaN(year) || isNaN(month)) return;
+  console.log(`${year}-${month}-${day}`);
   const date = new Date(`${year}-${month}-${day}`);
   if (isNaN(date.valueOf())) return;
   return date;
@@ -369,12 +371,26 @@ exports.feedbacks_post = function (req, res, next) {
     "A file shoukld be specified with the name like SaltMM-YYYY.txt";
   if (!req.files) {
     const err = new Error(ERROR_MESSAGE);
+    res.render("feedbacks", {
+      title: "Feedbacks",
+      date: new Date(),
+      page: 0,
+      feedbacks: [],
+      errors: [err],
+    });
     return;
   }
   const file = req.files.fileName;
   const date = _getDate(file.name);
   if (!date) {
     const err = new Error(ERROR_MESSAGE);
+    res.render("feedbacks", {
+      title: "Feedbacks",
+      date: new Date(),
+      page: 0,
+      feedbacks: [],
+      errors: [err],
+    });
     return;
   }
   const fileBuffer = file.data;

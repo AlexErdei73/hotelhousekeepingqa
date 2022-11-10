@@ -13,15 +13,15 @@
       <a href="/hotel/results/depart/monthly/<%= date.toISOString().slice(0, 10) %>" class="btn btn-primary" id="analyse-anchor">Analyse</a>
     </div>
     <div class="col">
-      <div class="row">
-          <div class="form-check form-check-inline">
-            <input type="checkbox" class="form-check-input text-primary checkbox-color" id="yeartodate" />
-            <label for="yeartodate" class="form-check-label">Year To Date</label>
-          </div> 
-          <div class="form-check form-check-inline">
-            <input type="checkbox" class="form-check-input text-primary checkbox-color" id="stayover" />
-            <label for="stayover" class="form-check-label">Stay Over</label>
-          </div>
+      <div class="row h-100 align-items-center justify-content-around">
+        <div class="form-check">
+          <input type="checkbox" class="form-check-input text-primary checkbox-color" id="yeartodate" />
+          <label for="yeartodate" class="form-check-label">Year To Date</label>
+        </div> 
+        <div class="form-check">
+          <input type="checkbox" class="form-check-input text-primary checkbox-color" id="stayover" />
+          <label for="stayover" class="form-check-label">Stay Over</label>
+        </div>
       </div>
     </div>
   </div>
