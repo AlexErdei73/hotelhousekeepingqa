@@ -4,6 +4,7 @@ const Service = require("../models/service");
 const { body, validationResult } = require("express-validator");
 const { getYear, getMonth } = require("date-fns");
 const async = require("async");
+require("dotenv").config();
 
 function _findDepartCleaner(feedback, cb) {
   Service.find({
@@ -369,6 +370,17 @@ function _saveFeedback(feedback, cb) {
 exports.feedbacks_post = function (req, res, next) {
   const ERROR_MESSAGE =
     "A file shoukld be specified with the name like SaltMM-YYYY.txt";
+  const password = process.env.PASSWORD;
+  if (password !== req.body.password) {
+    res.render("feedbacks", {
+      title: "Feedbacks",
+      date: new Date(),
+      page: 0,
+      feedbacks: [],
+      errors: [new Error("Invalid Password")],
+    });
+    return;
+  }
   if (!req.files) {
     const err = new Error(ERROR_MESSAGE);
     res.render("feedbacks", {
