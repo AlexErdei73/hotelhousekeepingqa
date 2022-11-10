@@ -43,7 +43,7 @@ function _activeCleaners(cb) {
     });
 }
 
-exports.page_get = function (req, res, next) {
+function _render_page(req, errors, password, cb) {
   async.parallel(
     [
       function (callback) {
@@ -56,7 +56,8 @@ exports.page_get = function (req, res, next) {
     ],
     (err, results) => {
       if (err) {
-        return next(err);
+        cb(err, null);
+        return;
       }
       const rooms = results[0];
       const services = results[1];
@@ -77,7 +78,7 @@ exports.page_get = function (req, res, next) {
         }
         return { roomnumber, cleaner, type, audit_score };
       });
-      res.render("pageview", {
+      cb(null, {
         page: req.params.page,
         date: new Date(req.params.date),
         title: `Hotel Page ${req.params.page}`,
@@ -86,10 +87,20 @@ exports.page_get = function (req, res, next) {
         service: null,
         cleaners: results[2],
         index: req.params.index,
-        password: "",
+        password,
+        errors
       });
     }
   );
+}
+
+exports.page_get = function (req, res, next) {
+  _render_page(req, [], "", (err, result) => {
+    if (err) {
+      return next(err);
+    }
+    res.render("pageview", result);
+  })
 };
 
 exports.page_post = [
