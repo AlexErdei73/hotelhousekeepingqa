@@ -3,6 +3,7 @@ const Cleaner = require("../models/cleaner");
 const Room = require("../models/room");
 const { body, validationResult } = require("express-validator");
 const async = require("async");
+require("dotenv").config();
 
 function _roomsOnPage(req, cb) {
   const page = req.params.page;
@@ -86,7 +87,7 @@ function _render_page(req, errors, password, cb) {
         serviceRecords,
         service: null,
         cleaners: results[2],
-        index: req.params.index,
+        index: req.body.index || req.params.index,
         password,
         errors
       });
@@ -95,7 +96,7 @@ function _render_page(req, errors, password, cb) {
 }
 
 exports.page_get = function (req, res, next) {
-  _render_page(req, [], "", (err, result) => {
+  _render_page(req, null, "", (err, result) => {
     if (err) {
       return next(err);
     }
@@ -121,13 +122,31 @@ exports.page_post = [
     .isInt({ min: 0, max: 100, allow_leading_zeros: false })
     .withMessage("Audit score is an integer between 0 and 100")
     .toInt(),
+  body("password")
+    .isLength({ min: 1 })
+    .escape()
+    .withMessage("Password must be specified"),
+
   function (req, res, next) {
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
-      console.log(errors);
-      res.redirect(
-        `/hotel/${req.params.page}/${req.params.date}/${req.body.index}`
-      );
+      _render_page(req, errors.array(), req.body.password, (err, result) => {
+        if (err) {
+          return next(err);
+        }
+        res.render("pageview", result);
+      })
+      return;
+    }
+    const password = process.env.PASSWORD;
+    if (password !== req.body.password) {
+      const error = new Error("Invalid Password");
+      _render_page(req, [error], req.body.password, (err, result) => {
+        if (err) {
+          return next(err);
+        }
+        res.render("pageview", result);
+      })
       return;
     }
     Room.findOne({ number: req.body.roomnumber }).exec((err, room) => {
@@ -138,10 +157,12 @@ exports.page_post = [
         const error = new Error("Roomnumber does not exist");
         const errors = [];
         errors.push(error);
-        console.log(errors);
-        res.redirect(
-          `/hotel/${req.params.page}/${req.params.date}/${req.body.index}`
-        );
+        _render_page(req, errors, req.body.password, (err, result) => {
+          if (err) {
+            return next(err);
+          }
+          res.render("pageview", result);
+        })
         return;
       }
       Service.find({ room: room._id, date: req.body.date }).exec(
@@ -157,10 +178,13 @@ exports.page_post = [
                 if (err) {
                   return next(err);
                 }
-                res.redirect(
-                  `/hotel/${req.params.page}/${req.params.date}/${req.body.index}`
-                );
+                _render_page(req, null, req.body.password, (err, result) => {
+                  if (err) {
+                    return next(err);
+                  }
+                  res.render("pageview", result);
               });
+            })
             } else {
               // Update service
               Service.findByIdAndUpdate(
@@ -178,9 +202,12 @@ exports.page_post = [
                   if (err) {
                     return next(err);
                   }
-                  res.redirect(
-                    `/hotel/${req.params.page}/${req.params.date}/${req.body.index}`
-                  );
+                  _render_page(req, null, req.body.password, (err, result) => {
+                    if (err) {
+                      return next(err);
+                    }
+                    res.render("pageview", result);
+                  });
                 }
               );
             }
@@ -197,12 +224,14 @@ exports.page_post = [
             if (err) {
               return next(err);
             }
-            res.redirect(
-              `/hotel/${req.params.page}/${req.params.date}/${req.body.index}`
-            );
+            _render_page(req, null, req.body.password, (err, result) => {
+              if (err) {
+                return next(err);
+              }
+              res.render("pageview", result);
           });
-        }
-      );
+        });
     });
   },
+)}
 ];

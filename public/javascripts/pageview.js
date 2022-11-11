@@ -4,7 +4,8 @@ const nextAnchor = document.querySelector('#next');
 const backAnchor = document.querySelector('#back');
 const cleanerSelect = document.querySelector('#cleaner-select');
 const typeSelects = document.querySelectorAll('td select');
-const auditInput = document.querySelector('#audit')
+const auditInput = document.querySelector('#audit');
+const passwordInput = document.querySelector('#password-input');
 // form elements on the invisible form
 const dateFormInput = document.querySelector('#date');
 const roomnumberFormInput = document.querySelector('#roomnumber');
@@ -12,6 +13,7 @@ const cleanerFormSelect = document.querySelector('#cleaner');
 const typeFormSelect = document.querySelector('#type');
 const indexInput = document.querySelector('#index');
 const auditScoreFormInput = document.querySelector('#audit-score');
+const passwordFormInput = document.querySelector('#password');
 const form = document.querySelector('form');
 
 const page = Number(pageInput.value);
@@ -75,6 +77,8 @@ function onTypeChange(event) {
     auditScoreFormInput.value = auditScore;
     const index = event.target.getAttribute("index");
     indexInput.value = index;
+    const password = passwordInput.value;
+    passwordFormInput.value = password;
     form.submit();
 }
 
@@ -83,6 +87,8 @@ function onTypeFocus(event) {
     index = input.getAttribute("index");
     auditScore = input.getAttribute("audit-score");
     auditInput.value = auditScore;
+    const cleanerId = input.getAttribute('cleaner');
+    if (cleanerId !== "") cleanerSelect.value = cleanerId;
 }
 
 typeSelects.forEach(select => {
