@@ -160,10 +160,10 @@ function _findAllCleaners(feedbacks, cb) {
 }
 
 function _updateFeedback(feedback, cleaners, cb) {
-  /*if (feedback.depart_cleaner) {
+  if (feedback.depart_cleaner) {
     cb(null, feedback);
     return;
-  }*/
+  }
   const newFeedback = {
     _id: feedback._id,
     checkin_date: feedback.checkin_date,
