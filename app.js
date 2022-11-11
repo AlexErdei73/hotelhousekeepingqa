@@ -10,7 +10,16 @@ var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 var hotelRouter = require('./routes/hotel');
 
+var compression = require('compression');
+var helmet = require('helmet');
+
 var app = express();
+
+//compress all routes
+app.use(compression());
+
+//use helmet against well known vulnerabilities
+app.use(helmet());
 
 // Set up mongoose connection
 const mongoose = require("mongoose");

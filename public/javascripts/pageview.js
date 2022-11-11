@@ -88,7 +88,10 @@ function onTypeFocus(event) {
     auditScore = input.getAttribute("audit-score");
     auditInput.value = auditScore;
     const cleanerId = input.getAttribute('cleaner');
-    if (cleanerId !== "") cleanerSelect.value = cleanerId;
+    if (cleanerId !== "") {
+        cleanerSelect.value = cleanerId;
+        cleanerFormSelect.value = cleanerId;
+    }
 }
 
 typeSelects.forEach(select => {
