@@ -95,11 +95,12 @@ Please turn off addblock software on this site, because this software bocks clie
 
 ## Applied Technology
 
-The website is a Node.js app. The backend framework is Express. The view engine is EJS. No other technology has been applied apart from
-Bootstrap 5 for styling, basic HTML, CSS and client side JavaScript. The technology has been just enough to build the app. I felt a lot
-that it would have been easier to build the app with a frontend-framework like React. The biggest issue was that the UI could not have a
-state, which is stored only on the client side. In my oppinion, it is itself a great achievment that I managed to build this kind of app
-with such a restricted technology. Regarding this I strictly followed the project description.
+The website is a Node.js app. The backend framework is Express. The view engine is EJS. The database is MongoDB on the Atlas cluster. 
+MongoDB is handled by Mongoose. No other technology has been applied apart from Bootstrap 5 for styling, basic HTML, CSS and client 
+side JavaScript. The technology has been just enough to build the app. I felt a lot that it would have been easier to build the app 
+with a frontend-framework like React. The biggest issue was that the UI could not have a state, which is stored only on the client side. 
+In my oppinion, it is itself a great achievment that I managed to build this kind of app with such a restricted technology. Regarding 
+this I strictly followed the project description.
 
 ## Security
 
