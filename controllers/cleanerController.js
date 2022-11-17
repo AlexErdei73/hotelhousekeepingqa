@@ -1,6 +1,7 @@
 const Cleaner = require("../models/cleaner");
 const { body, validationResult } = require("express-validator");
 require("dotenv").config();
+const bcrypt = require("bcryptjs");
 
 exports.cleaner_list = function (req, res, next) {
   Cleaner.find()
@@ -70,30 +71,36 @@ exports.cleaner_create_post = [
     }
     //We validate the password
     const password = process.env.PASSWORD;
-    if (password !== req.body.password) {
-      //Password is invalid
-      res.render("cleaner_form", {
-        title: "Create Cleaner",
-        date: new Date(),
-        page: 1,
-        cleaner: req.body,
-        errors: [new Error("Invalid Password")],
-      });
-      return;
-    }
-    //No errors, so we can save the cleaner in the database
-    const cleaner = new Cleaner({
-      first_name: req.body.first_name,
-      last_name: req.body.last_name,
-      active: req.body.active === "true" ? true : false,
-      start_date: req.body.start_date,
-      end_date: req.body.end_date,
-    });
-    cleaner.save(function (err) {
+    bcrypt.compare(req.body.password, password, (err, success) => {
       if (err) {
         return next(err);
       }
-      res.redirect("/hotel/cleaners");
+      if (success) {
+        //No errors, so we can save the cleaner in the database
+        const cleaner = new Cleaner({
+          first_name: req.body.first_name,
+          last_name: req.body.last_name,
+          active: req.body.active === "true" ? true : false,
+          start_date: req.body.start_date,
+          end_date: req.body.end_date,
+        });
+        cleaner.save(function (err) {
+          if (err) {
+            return next(err);
+          }
+          res.redirect("/hotel/cleaners");
+        });
+      } else {
+        //Password is invalid
+        res.render("cleaner_form", {
+          title: "Create Cleaner",
+          date: new Date(),
+          page: 1,
+          cleaner: req.body,
+          errors: [new Error("Invalid Password")],
+        });
+        return;
+      }
     });
   },
 ];
@@ -180,31 +187,37 @@ exports.cleaner_update_post = [
     }
     //We validate the password
     const password = process.env.PASSWORD;
-    if (password !== req.body.password) {
-      //Password is invalid
-      res.render("cleaner_form", {
-        title: "Create Cleaner",
-        date: new Date(),
-        page: 1,
-        cleaner: req.body,
-        errors: [new Error("Invalid Password")],
-      });
-      return;
-    }
-    //No errors, so we can save the cleaner in the database
-    const cleaner = new Cleaner({
-      first_name: req.body.first_name,
-      last_name: req.body.last_name,
-      active: req.body.active === "true" ? true : false,
-      start_date: req.body.start_date,
-      end_date: req.body.end_date,
-      _id: req.params.id,
-    });
-    Cleaner.findByIdAndUpdate(req.params.id, cleaner, {}, function (err) {
+    bcrypt.compare(req.body.password, password, (err, success) => {
       if (err) {
         return next(err);
       }
-      res.redirect("/hotel/cleaners");
+      if (success) {
+        //No errors, so we can save the cleaner in the database
+        const cleaner = new Cleaner({
+          first_name: req.body.first_name,
+          last_name: req.body.last_name,
+          active: req.body.active === "true" ? true : false,
+          start_date: req.body.start_date,
+          end_date: req.body.end_date,
+          _id: req.params.id,
+        });
+        Cleaner.findByIdAndUpdate(req.params.id, cleaner, {}, function (err) {
+          if (err) {
+            return next(err);
+          }
+          res.redirect("/hotel/cleaners");
+        });
+      } else {
+        //Password is invalid
+        res.render("cleaner_form", {
+          title: "Create Cleaner",
+          date: new Date(),
+          page: 1,
+          cleaner: req.body,
+          errors: [new Error("Invalid Password")],
+        });
+        return;
+      }
     });
   },
 ];

@@ -4,6 +4,7 @@ const Room = require("../models/room");
 const { body, validationResult } = require("express-validator");
 const async = require("async");
 const hotel_controller = require("../controllers/hotelController");
+const bcrypt = require("bcryptjs");
 
 function _service_create_get(res, next, service, errors) {
   Cleaner.find({ active: true })
@@ -105,8 +106,26 @@ exports.service_create_post = [
           }
           //We validate the password
           const password = process.env.PASSWORD;
-          if (password !== req.body.password) {
-            //Password is invalid
+          bcrypt.compare(req.body.password, password, (err, success) => {
+            if (err) {
+              return next(err);
+            }
+            if (success) {
+              const service = new Service({
+                date: req.body.date,
+                room: room._id,
+                cleaner: req.body.cleaner,
+                type: req.body.type,
+                audit_score: req.body.audit_score,
+              });
+              service.save((err) => {
+                if (err) {
+                  return next(err);
+                }
+                res.redirect(`/hotel/${room.page}/${req.body.date}/0`);
+              });
+            } else {
+              //Password is invalid
             const service = {
               date: req.body.date,
               roomnumber: req.body.roomnumber,
@@ -118,20 +137,8 @@ exports.service_create_post = [
               new Error("Invalid Password"),
             ]);
             return;
-          }
-          const service = new Service({
-            date: req.body.date,
-            room: room._id,
-            cleaner: req.body.cleaner,
-            type: req.body.type,
-            audit_score: req.body.audit_score,
-          });
-          service.save((err) => {
-            if (err) {
-              return next(err);
             }
-            res.redirect(`/hotel/${room.page}/${req.body.date}/0`);
-          });
+          })
         }
       );
     });
@@ -173,28 +180,34 @@ function _handle_file_error(req, res, message) {
 exports.services_upload_post = function (req, res, next) {
   //Password validation
   const password = process.env.PASSWORD;
-  if (password !== req.body.password) {
-    //Password is invalid
-    _handle_file_error(req, res, "Invalid Password");
-    return;
-  }
-  if (!req.files) {
-    _handle_file_error(req, res);
-    return;
-  }
-  const file = req.files.fileName;
-  const fileBuffer = file.data;
-  exports.saveSynergyFile(
-    file.name,
-    fileBuffer.toString("utf-8"),
-    (err, date) => {
-      if (err) {
-        _handle_file_error(req, res, err.message);
+  bcrypt.compare(req.body.password, password, (err, success) => {
+    if (err) {
+      return next(err);
+    }
+    if (success) {
+      if (!req.files) {
+        _handle_file_error(req, res);
         return;
       }
-      res.redirect(`/hotel/1/${date.toISOString().slice(0, 10)}/0`);
+      const file = req.files.fileName;
+      const fileBuffer = file.data;
+      exports.saveSynergyFile(
+        file.name,
+        fileBuffer.toString("utf-8"),
+        (err, date) => {
+          if (err) {
+            _handle_file_error(req, res, err.message);
+            return;
+          }
+          res.redirect(`/hotel/1/${date.toISOString().slice(0, 10)}/0`);
+        }
+      );
+    } else {
+      //Password is invalid
+    _handle_file_error(req, res, "Invalid Password");
+    return;
     }
-  );
+  })
 };
 
 exports.saveSynergyFile = function (fileName, fileData, cb) {

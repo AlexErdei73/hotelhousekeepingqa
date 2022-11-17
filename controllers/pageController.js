@@ -4,6 +4,7 @@ const Room = require("../models/room");
 const { body, validationResult } = require("express-validator");
 const async = require("async");
 require("dotenv").config();
+const bcrypt = require("bcryptjs");
 
 function _roomsOnPage(req, cb) {
   const page = req.params.page;
@@ -139,42 +140,83 @@ exports.page_post = [
       return;
     }
     const password = process.env.PASSWORD;
-    if (password !== req.body.password) {
-      const error = new Error("Invalid Password");
-      _render_page(req, [error], req.body.password, (err, result) => {
-        if (err) {
-          return next(err);
-        }
-        res.render("pageview", result);
-      })
-      return;
-    }
-    Room.findOne({ number: req.body.roomnumber }).exec((err, room) => {
+    bcrypt.compare(req.body.password, password, (err, success) => {
       if (err) {
         return next(err);
       }
-      if (room === null) {
-        const error = new Error("Roomnumber does not exist");
-        const errors = [];
-        errors.push(error);
-        _render_page(req, errors, req.body.password, (err, result) => {
+      if (success) {
+        Room.findOne({ number: req.body.roomnumber }).exec((err, room) => {
           if (err) {
             return next(err);
           }
-          res.render("pageview", result);
-        })
-        return;
-      }
-      Service.find({ room: room._id, date: req.body.date }).exec(
-        (err, services) => {
-          if (err) {
-            return next(err);
+          if (room === null) {
+            const error = new Error("Roomnumber does not exist");
+            const errors = [];
+            errors.push(error);
+            _render_page(req, errors, req.body.password, (err, result) => {
+              if (err) {
+                return next(err);
+              }
+              res.render("pageview", result);
+            })
+            return;
           }
-          if (services.length !== 0) {
-            // Service exists, we either update or delete it
-            if (req.body.type === " ") {
-              // Delete service
-              Service.findByIdAndRemove(services[0]._id, {}, (err) => {
+          Service.find({ room: room._id, date: req.body.date }).exec(
+            (err, services) => {
+              if (err) {
+                return next(err);
+              }
+              if (services.length !== 0) {
+                // Service exists, we either update or delete it
+                if (req.body.type === " ") {
+                  // Delete service
+                  Service.findByIdAndRemove(services[0]._id, {}, (err) => {
+                    if (err) {
+                      return next(err);
+                    }
+                    _render_page(req, null, req.body.password, (err, result) => {
+                      if (err) {
+                        return next(err);
+                      }
+                      res.render("pageview", result);
+                  });
+                })
+                } else {
+                  // Update service
+                  Service.findByIdAndUpdate(
+                    services[0]._id,
+                    {
+                      room: room._id,
+                      date: new Date(req.body.date),
+                      cleaner: req.body.cleaner,
+                      type: req.body.type,
+                      audit_score: req.body.audit_score,
+                      _id: services[0]._id,
+                    },
+                    {},
+                    (err) => {
+                      if (err) {
+                        return next(err);
+                      }
+                      _render_page(req, null, req.body.password, (err, result) => {
+                        if (err) {
+                          return next(err);
+                        }
+                        res.render("pageview", result);
+                      });
+                    }
+                  );
+                }
+                return;
+              }
+              const service = new Service({
+                date: req.body.date,
+                room: room._id,
+                cleaner: req.body.cleaner,
+                type: req.body.type,
+                audit_score: req.body.audit_score,
+              });
+              service.save((err) => {
                 if (err) {
                   return next(err);
                 }
@@ -184,54 +226,19 @@ exports.page_post = [
                   }
                   res.render("pageview", result);
               });
-            })
-            } else {
-              // Update service
-              Service.findByIdAndUpdate(
-                services[0]._id,
-                {
-                  room: room._id,
-                  date: new Date(req.body.date),
-                  cleaner: req.body.cleaner,
-                  type: req.body.type,
-                  audit_score: req.body.audit_score,
-                  _id: services[0]._id,
-                },
-                {},
-                (err) => {
-                  if (err) {
-                    return next(err);
-                  }
-                  _render_page(req, null, req.body.password, (err, result) => {
-                    if (err) {
-                      return next(err);
-                    }
-                    res.render("pageview", result);
-                  });
-                }
-              );
-            }
-            return;
-          }
-          const service = new Service({
-            date: req.body.date,
-            room: room._id,
-            cleaner: req.body.cleaner,
-            type: req.body.type,
-            audit_score: req.body.audit_score,
-          });
-          service.save((err) => {
-            if (err) {
-              return next(err);
-            }
-            _render_page(req, null, req.body.password, (err, result) => {
-              if (err) {
-                return next(err);
-              }
-              res.render("pageview", result);
-          });
+            });
         });
-    });
-  },
-)}
+      })
+      } else {
+        const error = new Error("Invalid Password");
+      _render_page(req, [error], req.body.password, (err, result) => {
+        if (err) {
+          return next(err);
+        }
+        res.render("pageview", result);
+      })
+      return;
+      }
+    })
+  }
 ];
