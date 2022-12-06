@@ -50,7 +50,7 @@ service_details = function (date, cb) {
         _getServiceNumber("stay over", date, callback);
       },
       linenchange_number(callback) {
-        _getServiceNumber("linenchange", date, callback);
+        _getServiceNumber("linen change", date, callback);
       },
       noservices(callback) {
         _getServiceTypes("no service", date, callback);
