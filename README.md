@@ -1,7 +1,7 @@
 # hotelhousekeepingqa
 
 This is my own version of the
-[Inventory Application](https://www.theodinproject.com/lessons/nodejs-inventory-application).
+[Inventory Application](https://www.theodinproject.com/lessons/node-path-nodejs-inventory-application).
 This is a real-world app with real business data. The housekeeping department is
 responsible for cleaning the guest rooms in the hotel. The hotel sends
 questionaries to the guests about their stays. The guests can give a score
